@@ -1,5 +1,11 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
+from .comments import seed_comments, undo_comments
+from .likes import seed_likes, undo_likes
+from .pokemons import seed_pokemons, undo_pokemons
+from .teams import seed_teams, undo_teams
+from .teammembers import seed_team_members, undo_team_members
+
 
 from app.models.db import db, environment, SCHEMA
 
@@ -12,12 +18,23 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     if environment == 'production':
-        # Before seeding in production, you want to run the seed undo 
-        # command, which will  truncate all tables prefixed with 
+        # Before seeding in production, you want to run the seed undo
+        # command, which will  truncate all tables prefixed with
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
+        undo_teams()
+        undo_pokemons()
+        undo_comments()
+        undo_likes()
+        undo_team_members()
     seed_users()
+    seed_pokemons()
+    seed_teams()
+    seed_comments()
+    seed_likes()
+    seed_team_members()
+
     # Add other seed functions here
 
 
@@ -25,4 +42,9 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
+    undo_teams()
+    undo_pokemons()
+    undo_comments()
+    undo_likes()
+    undo_team_members()
     # Add other undo functions here
