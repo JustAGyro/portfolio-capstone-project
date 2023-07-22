@@ -10,8 +10,8 @@ class Team(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    team_name = db.Column(db.String(100))
-    team_summary = db.Column(db.String(4000))
+    team_name = db.Column(db.String)
+    team_summary = db.Column(db.String)
 
     user = relationship("User", back_populates="teams")
     comments = relationship("Comment",back_populates="team" )
