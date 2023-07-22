@@ -11,7 +11,7 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     team_name = db.Column(db.String(20))
-    team_story = db.Column(db.String(4000))
+    team_summary = db.Column(db.String(4000))
 
     user = relationship("User", back_populates="teams")
 
@@ -20,5 +20,5 @@ class Team(db.Model):
             'id': self.id,
             "user_id": self.user_id,
             "team_name": self.team_name,
-            "team_story": self.team_story,
+            "team_summary": self.team_summary,
         }
