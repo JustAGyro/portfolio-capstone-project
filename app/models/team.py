@@ -14,6 +14,9 @@ class Team(db.Model):
     team_summary = db.Column(db.String(4000))
 
     user = relationship("User", back_populates="teams")
+    comments = relationship("Comment",back_populates="team" )
+    teammember = relationship("TeamMember", back_populates="team")
+    likes = relationship("Like", back_populates="team")
 
     def to_dict(self):
         return {

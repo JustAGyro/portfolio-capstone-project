@@ -12,8 +12,8 @@ class TeamMember(db.Model):
     team_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("teams.id")), nullable=False)
     pokemon_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("pokemons.id")), nullable=False)
 
-    team = relationship("Team", back_populates="teammembers")
-    pokemon = relationship("Pokemon", back_populates="teammembers")
+    team = relationship("Team", back_populates="teammember")
+    pokemon = relationship("Pokemon", back_populates="teammember")
 
     def to_dict(self):
         return {
