@@ -11,7 +11,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     team_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("teams.id")), nullable=False)
-    comment_text = db.Column(db.String(240))
+    comment_text = db.Column(db.String)
 
     user = relationship("User", back_populates="comments")
     team = relationship("Team", back_populates="comments")
