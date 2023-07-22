@@ -10,12 +10,13 @@ class Pokemon(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    poke_dex = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(30), nullable=False)
     nick_name = db.Column(db.String(30))
     gender = db.Column(db.String(30), nullable=False)
     shiny = db.Column(db.Boolean, nullable=False)
     type_one = db.Column(db.String(30), nullable=False)
-    type_two = db.Column(db.String(30), nullable=False)
+    type_two = db.Column(db.String(30))
     tera_type = db.Column(db.String(30))
     item = db.Column(db.String(35))
     ability = db.Column(db.String(35), nullable=False)
@@ -30,12 +31,12 @@ class Pokemon(db.Model):
     base_sp_atk = db.Column(db.Integer, nullable=False, default=1)
     base_sp_def = db.Column(db.Integer, nullable=False, default=1)
     base_speed = db.Column(db.Integer, nullable=False, default=1)
-    ev_hp = db.Column(db.Integer, nullable=False, default=1)
-    ev_atk = db.Column(db.Integer, nullable=False, default=1)
-    ev_def = db.Column(db.Integer, nullable=False, default=1)
-    ev_sp_atk = db.Column(db.Integer, nullable=False, default=1)
-    ev_sp_def = db.Column(db.Integer, nullable=False, default=1)
-    ev_speed = db.Column(db.Integer, nullable=False, default=1)
+    ev_hp = db.Column(db.Integer, nullable=False, default=0)
+    ev_atk = db.Column(db.Integer, nullable=False, default=0)
+    ev_def = db.Column(db.Integer, nullable=False, default=0)
+    ev_sp_atk = db.Column(db.Integer, nullable=False, default=0)
+    ev_sp_def = db.Column(db.Integer, nullable=False, default=0)
+    ev_speed = db.Column(db.Integer, nullable=False, default=0)
     iv_hp = db.Column(db.Integer, nullable=False, default=1)
     iv_atk = db.Column(db.Integer, nullable=False, default=1)
     iv_def = db.Column(db.Integer, nullable=False, default=1)
@@ -49,6 +50,7 @@ class Pokemon(db.Model):
         return {
             'id': self.id,
             "user_id": self.user_id,
+            "poke_dex": self.poke_dex,
             "name": self.name,
             "nick_name": self.nick_name,
             "gender": self.gender,
