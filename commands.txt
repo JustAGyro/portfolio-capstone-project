@@ -25,3 +25,5 @@ SCHEMA = os.environ.get("SCHEMA")
             if environment == "production":
                 context.execute(f"SET search_path TO {SCHEMA}")
             context.run_migrations()
+
+DROP SCHEMA pokemon_schema CASCADE;
