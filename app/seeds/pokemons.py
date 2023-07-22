@@ -1,7 +1,7 @@
 from app.models import db, Pokemon, environment, SCHEMA
 from sqlalchemy.sql import text
 
-def seed_likes():
+def seed_pokemons():
     poke_1 = Pokemon(
         user_id=1, poke_dex=1, name="Bulbasaur", nick_name="Bulba",
         gender="Male", shiny=True, type_one="Grass", type_two="Poison",
@@ -399,13 +399,12 @@ def seed_likes():
     db.session.add(poke_34)
     db.session.add(poke_35)
     db.session.add(poke_36)
-
     db.session.commit()
 
-def undo_likes():
+def undo_pokemons():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.pokemons RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM likes"))
+        db.session.execute(text("DELETE FROM pokemons"))
 
     db.session.commit()
