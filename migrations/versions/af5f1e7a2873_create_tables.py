@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: 14c7e9e4324a
+Revision ID: af5f1e7a2873
 Revises: 
-Create Date: 2023-07-22 13:57:13.461596
+Create Date: 2023-07-22 14:42:39.334300
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '14c7e9e4324a'
+revision = 'af5f1e7a2873'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,20 +31,20 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('poke_dex', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=30), nullable=False),
-    sa.Column('nick_name', sa.String(length=30), nullable=True),
-    sa.Column('gender', sa.String(length=30), nullable=False),
+    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('nick_name', sa.String(), nullable=True),
+    sa.Column('gender', sa.String(), nullable=False),
     sa.Column('shiny', sa.Boolean(), nullable=False),
-    sa.Column('type_one', sa.String(length=30), nullable=False),
-    sa.Column('type_two', sa.String(length=30), nullable=True),
-    sa.Column('tera_type', sa.String(length=30), nullable=True),
-    sa.Column('item', sa.String(length=35), nullable=True),
-    sa.Column('ability', sa.String(length=35), nullable=False),
-    sa.Column('nature', sa.String(length=35), nullable=False),
-    sa.Column('move_one', sa.String(length=35), nullable=True),
-    sa.Column('move_two', sa.String(length=35), nullable=True),
-    sa.Column('move_three', sa.String(length=35), nullable=True),
-    sa.Column('move_four', sa.String(length=35), nullable=True),
+    sa.Column('type_one', sa.String(), nullable=False),
+    sa.Column('type_two', sa.String(), nullable=True),
+    sa.Column('tera_type', sa.String(), nullable=True),
+    sa.Column('item', sa.String(), nullable=True),
+    sa.Column('ability', sa.String(), nullable=False),
+    sa.Column('nature', sa.String(), nullable=False),
+    sa.Column('move_one', sa.String(), nullable=True),
+    sa.Column('move_two', sa.String(), nullable=True),
+    sa.Column('move_three', sa.String(), nullable=True),
+    sa.Column('move_four', sa.String(), nullable=True),
     sa.Column('base_hp', sa.Integer(), nullable=False),
     sa.Column('base_atk', sa.Integer(), nullable=False),
     sa.Column('base_def', sa.Integer(), nullable=False),
@@ -69,8 +69,8 @@ def upgrade():
     op.create_table('teams',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('team_name', sa.String(length=20), nullable=True),
-    sa.Column('team_summary', sa.String(length=4000), nullable=True),
+    sa.Column('team_name', sa.String(), nullable=True),
+    sa.Column('team_summary', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -78,7 +78,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('team_id', sa.Integer(), nullable=False),
-    sa.Column('comment_text', sa.String(length=240), nullable=True),
+    sa.Column('comment_text', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
