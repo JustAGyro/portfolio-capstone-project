@@ -4,7 +4,7 @@ from app.models import Pokemon, Team, Party, db
 
 party_routes = Blueprint('party', __name__)
 
-@party_routes('/current')
+@party_routes.route('/current')
 @login_required
 def get_user_parties():
     user_id = current_user.id
@@ -13,7 +13,7 @@ def get_user_parties():
 
     return jsonify(parties_list)
 
-@party_routes('/all')
+@party_routes.route('/all')
 @login_required
 def get_parties():
     parties = Party.query.all()
@@ -21,7 +21,7 @@ def get_parties():
 
     return jsonify(parties_list)
 
-@party_routes('/new', methods=['POST'])
+@party_routes.route('/new', methods=['POST'])
 @login_required
 def create_party():
     data = request.get_json()
@@ -38,7 +38,7 @@ def create_party():
 
     return jsonify(new_party.to_dict())
 
-@party_routes('/<id>/delete', methods=['DELETE'])
+@party_routes.route('/<id>/delete', methods=['DELETE'])
 @login_required
 def delete_party(id):
     party = Party.query.get(id)

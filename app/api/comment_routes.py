@@ -4,7 +4,7 @@ from app.models import Comment, Team, db
 
 comment_routes = Blueprint('comments', __name__)
 
-@comment_routes('/current')
+@comment_routes.route('/current')
 @login_required
 def get_user_comments():
     user_id = current_user.id
@@ -13,7 +13,7 @@ def get_user_comments():
 
     return jsonify(comment_list)
 
-@comment_routes('/all')
+@comment_routes.route('/all')
 @login_required
 def get_comments():
     comments = Comment.query.all()
@@ -21,7 +21,7 @@ def get_comments():
 
     return jsonify(comments_list)
 
-@comment_routes('/new', methods=['POST'])
+@comment_routes.route('/new', methods=['POST'])
 @login_required
 def create_comment():
     user_id = current_user.id
@@ -41,7 +41,7 @@ def create_comment():
 
     return jsonify(new_comment.to_dict())
 
-@comment_routes('/<id>/edit', methods=['PUT'])
+@comment_routes.route('/<id>/edit', methods=['PUT'])
 @login_required
 def edit_comment(id):
     comment = Comment.query.get(id)
@@ -58,7 +58,7 @@ def edit_comment(id):
     else:
         return {'res': 'No Comment Found'}
 
-@comment_routes('/<id>/delete', methods=['DELETE'])
+@comment_routes.route('/<id>/delete', methods=['DELETE'])
 @login_required
 def delete_comment(id):
     comment = Comment.query.get(id)

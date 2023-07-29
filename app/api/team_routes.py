@@ -4,7 +4,7 @@ from app.models import Pokemon, Team, User, db
 
 team_routes = Blueprint('teams', __name__)
 
-@team_routes('/current')
+@team_routes.route('/current')
 @login_required
 def get_user_teams():
     user_id = current_user.id
@@ -13,7 +13,7 @@ def get_user_teams():
 
     return jsonify(teams_list)
 
-@team_routes('/all')
+@team_routes.route('/all')
 @login_required
 def get_teams():
     teams = Team.query.all()
@@ -21,7 +21,7 @@ def get_teams():
 
     return jsonify(teams_list)
 
-@team_routes('/new',methods=['POST'])
+@team_routes.route('/new',methods=['POST'])
 @login_required
 def create_team():
     data = request.get_json()
@@ -40,7 +40,7 @@ def create_team():
 
     return jsonify(new_team.to_dict())
 
-@team_routes('/<id>/edit', methods=['PUT'])
+@team_routes.route('/<id>/edit', methods=['PUT'])
 @login_required
 def edit_team(id):
     team = Team.query.get(id)
@@ -60,7 +60,7 @@ def edit_team(id):
     else:
         return {'res': 'No Team Found'}
 
-@team_routes('/<id>/delete', methods=['DELETE'])
+@team_routes.route('/<id>/delete', methods=['DELETE'])
 @login_required
 def delete_team(id):
     team = Team.query.get(id)

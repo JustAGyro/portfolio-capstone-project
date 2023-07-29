@@ -4,7 +4,7 @@ from app.models import Like, User, Team, db
 
 like_routes = Blueprint('likes', __name__)
 
-@like_routes('/current')
+@like_routes.route('/current')
 @login_required
 def get_user_likes():
     user_id = current_user.id
@@ -14,7 +14,7 @@ def get_user_likes():
 
     return jsonify(like_list)
 
-@like_routes('/all')
+@like_routes.route('/all')
 @login_required
 def get_likes():
     likes = Like.query.all()
@@ -22,7 +22,7 @@ def get_likes():
 
     return jsonify(likes_list)
 
-@like_routes('/new', methods=['POST'])
+@like_routes.route('/new', methods=['POST'])
 @login_required
 def create_like():
     user_id = current_user.id
@@ -40,7 +40,7 @@ def create_like():
 
     return jsonify(new_like.to_dict())
 
-@like_routes('/<id>/delete', methods=['DELETE'])
+@like_routes.route('/<id>/delete', methods=['DELETE'])
 @login_required
 def delete_like(id):
     like = Like.query.get(id)

@@ -4,7 +4,7 @@ from app.models import Pokemon, User, db
 
 pokemon_routes = Blueprint('pokemon', __name__)
 
-@pokemon_routes('/current')
+@pokemon_routes.route('/current')
 @login_required
 def get_user_pokemon():
     user_id = current_user.id
@@ -13,7 +13,7 @@ def get_user_pokemon():
 
     return jsonify(pokemon_list)
 
-@pokemon_routes('/all')
+@pokemon_routes.route('/all')
 @login_required
 def get_pokemon():
     pokemons = Pokemon.query.all()
@@ -21,7 +21,7 @@ def get_pokemon():
 
     return jsonify(pokemon_list)
 
-@pokemon_routes('/new', methods=['POST'])
+@pokemon_routes.route('/new', methods=['POST'])
 @login_required
 def create_pokemon():
     user_id = current_user.id
@@ -102,7 +102,7 @@ def create_pokemon():
 
     return jsonify(new_pokemon.to_dict())
 
-@pokemon_routes('/<id>/edit', methods=['PUT'])
+@pokemon_routes.route('/<id>/edit', methods=['PUT'])
 @login_required
 def edit_pokemon(id):
     pokemon = Pokemon.query.get(id)
@@ -185,7 +185,7 @@ def edit_pokemon(id):
         return {'res': 'No Pokemon Found'}
 
 
-@pokemon_routes('<id>/delete', methods=['DELETE'])
+@pokemon_routes.route('<id>/delete', methods=['DELETE'])
 @login_required
 def delete_pokemon(id):
     pokemon = Pokemon.query.get(id)
