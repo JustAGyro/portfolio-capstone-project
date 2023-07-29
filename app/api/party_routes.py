@@ -23,7 +23,7 @@ def get_parties():
 
 @party_routes('/new', methods=['POST'])
 @login_required
-def new_party():
+def create_party():
     data = request.get_json()
     team_id = data.get('teamId')
     pokemon_id = data.get('pokemonId')

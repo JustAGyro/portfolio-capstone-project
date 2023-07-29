@@ -23,7 +23,7 @@ def get_comments():
 
 @comment_routes('/new', methods=['POST'])
 @login_required
-def new_comment():
+def create_comment():
     user_id = current_user.id
 
     data = request.get_json()

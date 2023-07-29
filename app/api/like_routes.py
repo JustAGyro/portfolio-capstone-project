@@ -24,7 +24,7 @@ def get_likes():
 
 @like_routes('/new', methods=['POST'])
 @login_required
-def new_like():
+def create_like():
     user_id = current_user.id
 
     data = request.get_json()
