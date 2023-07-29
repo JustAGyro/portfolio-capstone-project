@@ -15,7 +15,7 @@ class Team(db.Model):
 
     user = relationship("User", back_populates="teams")
     comments = relationship("Comment",back_populates="team" )
-    teammember = relationship("TeamMember", back_populates="team")
+    party = relationship("Party", back_populates="team")
     likes = relationship("Like", back_populates="team")
 
     def to_dict(self):
