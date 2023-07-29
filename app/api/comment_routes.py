@@ -13,6 +13,14 @@ def get_user_comments():
 
     return jsonify(comment_list)
 
+@comment_routes('/all')
+@login_required
+def get_comments():
+    comments = Comment.query.all()
+    comments_list = [comment.to_dict() for comment in comments]
+
+    return jsonify(comments_list)
+
 @comment_routes('/new', methods=['POST'])
 @login_required
 def new_comment():

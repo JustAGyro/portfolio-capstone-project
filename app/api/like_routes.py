@@ -14,6 +14,14 @@ def get_user_likes():
 
     return jsonify(like_list)
 
+@like_routes('/all')
+@login_required
+def get_likes():
+    likes = Like.query.all()
+    likes_list = [like.to_dict() for like in likes]
+
+    return jsonify(likes_list)
+
 @like_routes('/new', methods=['POST'])
 @login_required
 def new_like():
