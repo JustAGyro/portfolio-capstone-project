@@ -7,6 +7,7 @@ import { authenticate } from './store/session';
 import Navigation from './components/Navigation';
 import { getAllComments } from './store/comments';
 import { getAllLikes } from './store/likes';
+import { getAllParties } from './store/parties';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function App() {
   useEffect(() => {
     dispatch(getAllComments());
     dispatch(getAllLikes());
+    dispatch(getAllParties());
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 

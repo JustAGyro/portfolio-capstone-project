@@ -80,7 +80,7 @@ export const newLike = (like) => async (dispatch) => {
 };
 
 export const deleteLikes = (like) => async (dispatch) => {
-  const response = await fetch(`/api/comments/delete`, {
+  const response = await fetch(`/api/comments/${like.id}delete`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
