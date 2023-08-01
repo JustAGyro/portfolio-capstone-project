@@ -4,12 +4,14 @@ import session from './session';
 import comments from './comments';
 import likes from './likes';
 import parties from './parties';
+import pokemon from './pokemon';
 
 const rootReducer = combineReducers({
   session,
   comments,
   likes,
   parties,
+  pokemon,
 });
 
 let enhancer;

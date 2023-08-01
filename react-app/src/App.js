@@ -8,6 +8,7 @@ import Navigation from './components/Navigation';
 import { getAllComments } from './store/comments';
 import { getAllLikes } from './store/likes';
 import { getAllParties } from './store/parties';
+import { getAllPokemon } from './store/pokemon';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function App() {
     dispatch(getAllComments());
     dispatch(getAllLikes());
     dispatch(getAllParties());
+    dispatch(getAllPokemon());
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 

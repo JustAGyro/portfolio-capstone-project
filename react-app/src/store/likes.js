@@ -1,5 +1,3 @@
-import { loadComment } from './comments';
-
 const LOAD_USER_LIKES = 'likes/LOAD_USER_COMMENTS';
 const LOAD_ALL_LIKES = 'likes/LOAD_ALL_LIKES';
 const LOAD_LIKE = 'likes/LOAD_LIKE';
@@ -74,7 +72,7 @@ export const newLike = (like) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    dispatch(loadComment(data));
+    dispatch(loadLike(data));
     return data;
   }
 };
