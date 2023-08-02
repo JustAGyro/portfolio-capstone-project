@@ -13,3 +13,7 @@
   height: 100%;
   list-style: none;
 }
+
+.navbar-link {
+  text-decoration: none;
+}

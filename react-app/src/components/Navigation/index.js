@@ -10,12 +10,12 @@ function Navigation({ isLoaded }) {
   return (
     <ul className="navbar-list">
       <li>
-        <NavLink exact to="/">
+        <NavLink className="navbar-link" exact to="/">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink exact to="/">
+        <NavLink className="navbar-link" exact to="/">
           Home
         </NavLink>
       </li>
