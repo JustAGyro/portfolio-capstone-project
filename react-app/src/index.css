@@ -1,1 +1,13 @@
-/* TODO Add site wide styles */
+.navbar {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}

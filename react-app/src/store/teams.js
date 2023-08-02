@@ -78,7 +78,7 @@ export const newTeam = (team) => async (dispatch) => {
 };
 
 export const deleteTeams = (team) => async (dispatch) => {
-  const response = await fetch(`/api/comments/${team.id}delete`, {
+  const response = await fetch(`/api/comments/${team.id}/delete`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export const deleteTeams = (team) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    dispatch(deleteLike(data));
+    dispatch(deleteTeam(data));
     return data;
   }
 };

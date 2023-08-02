@@ -5,3 +5,11 @@
 .hidden {
   display: none;
 }
+
+.navbar-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  list-style: none;
+}

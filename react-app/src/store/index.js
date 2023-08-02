@@ -5,6 +5,7 @@ import comments from './comments';
 import likes from './likes';
 import parties from './parties';
 import pokemon from './pokemon';
+import teams from './teams';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   likes,
   parties,
   pokemon,
+  teams,
 });
 
 let enhancer;

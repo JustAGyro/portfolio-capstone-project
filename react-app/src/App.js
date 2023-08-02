@@ -9,6 +9,7 @@ import { getAllComments } from './store/comments';
 import { getAllLikes } from './store/likes';
 import { getAllParties } from './store/parties';
 import { getAllPokemon } from './store/pokemon';
+import { getAllTeams } from './store/teams';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,23 +19,28 @@ function App() {
     dispatch(getAllLikes());
     dispatch(getAllParties());
     dispatch(getAllPokemon());
+    dispatch(getAllTeams());
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
   return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-        </Switch>
-      )}
-    </>
+    <div>
+      <div className="navbar">
+        <Navigation isLoaded={isLoaded} />
+      </div>
+      <div className="content">
+        {isLoaded && (
+          <Switch>
+            <Route path="/login">
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+          </Switch>
+        )}
+      </div>
+    </div>
   );
 }
 
