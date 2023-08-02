@@ -10,6 +10,7 @@ import { getAllLikes } from './store/likes';
 import { getAllParties } from './store/parties';
 import { getAllPokemon } from './store/pokemon';
 import { getAllTeams } from './store/teams';
+import LandingPage from './components/LandingPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
       <div className="content">
         {isLoaded && (
           <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
             <Route path="/login">
               <LoginFormPage />
             </Route>

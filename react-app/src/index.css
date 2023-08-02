@@ -13,3 +13,7 @@
 body {
   font-family: JosefinSans-Regular;
 }
+
+.content {
+  margin-left: 100px;
+}
