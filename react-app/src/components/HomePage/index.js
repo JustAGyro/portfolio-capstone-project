@@ -45,21 +45,23 @@ function HomePage() {
             <div className="team-card-items">
               Team Summary: {team.team_summary}
             </div>
-            <div className="team-card-pkmn-div">
-              {teamPokemonMap[team.id].map((pkmn, pkmnIndex) => {
-                const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pkmn.poke_dex}.png`;
-                return (
-                  <div key={pkmnIndex} className="team-card-pkmn-background">
-                    <img
-                      className="team-card-pkmn"
-                      src={imgUrl}
-                      alt={pkmn.name}
-                    />
-                    <div className="team-card-pkmn-overlay"></div>
-                  </div>
-                );
-              })}
-            </div>
+            {teamPokemonMap[team.id] && (
+              <div className="team-card-pkmn-div">
+                {teamPokemonMap[team.id].map((pkmn, pkmnIndex) => {
+                  const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pkmn.poke_dex}.png`;
+                  return (
+                    <div key={pkmnIndex} className="team-card-pkmn-background">
+                      <img
+                        className="team-card-pkmn"
+                        src={imgUrl}
+                        alt={pkmn.name}
+                      />
+                      <div className="team-card-pkmn-overlay"></div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         ))}
       </div>

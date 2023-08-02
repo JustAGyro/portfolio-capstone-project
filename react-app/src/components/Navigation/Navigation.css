@@ -12,11 +12,18 @@
   justify-content: flex-start;
   height: 100%;
   list-style: none;
-  align-items: center;
-  margin-left: -20px;
+  align-items: flex-start;
+  font-size: 1rem;
 }
 
 .navbar-link {
   text-decoration: none;
   color: black;
+}
+
+.nav-button {
+  background-color: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
 }

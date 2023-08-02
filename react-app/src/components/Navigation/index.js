@@ -24,7 +24,7 @@ function Navigation({ isLoaded }) {
       </li>
       {sessionUser && (
         <li>
-          <button className="gen-button" onClick={handleLogout}>
+          <button className="nav-button" onClick={handleLogout}>
             Log out
           </button>
         </li>
