@@ -22,21 +22,13 @@ function Navigation({ isLoaded }) {
           Home
         </NavLink>
       </li>
-      {isLoaded && (
-        <div>
-          <ProfileButton user={sessionUser} />
-        </div>
-      )}
       {sessionUser && (
-        <div>
-          <button onClick={handleLogout}>Log out</button>
-        </div>
+        <li>
+          <button className="gen-button" onClick={handleLogout}>
+            Log out
+          </button>
+        </li>
       )}
-      <li>
-        <NavLink className="navbar-link" exact to="/">
-          Home
-        </NavLink>
-      </li>
     </ul>
   );
 }
