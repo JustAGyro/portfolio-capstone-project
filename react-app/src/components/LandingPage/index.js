@@ -6,27 +6,37 @@ import SignupFormModal from '../SignupFormModal';
 
 function LandingPage() {
   return (
-    <div className="homepage-container">
-      <div className="header-hp">
-        <h1>Welcome to Robinhood</h1>
+    <div className="landingpage-container">
+      <div className="landing-left">
+        <div className="landing-header">
+          <h1>Welcome to PokeMeta</h1>
+        </div>
+        <div className="landing-buttons">
+          <button className="gen-button">
+            {' '}
+            <OpenModalButton
+              className="gen-btn"
+              buttonText="Log In"
+              modalComponent={<LoginFormModal />}
+            />
+          </button>
+          <button className="gen-button">
+            {' '}
+            <OpenModalButton
+              className="gen-btn"
+              buttonText="Sign Up"
+              modalComponent={<SignupFormModal />}
+            />
+          </button>
+        </div>
       </div>
-      <div className="hp-buttons">
-        <button className="sd-button">
-          {' '}
-          <OpenModalButton
-            className="hp-btn"
-            buttonText="Log In"
-            modalComponent={<LoginFormModal />}
-          />
-        </button>
-        <button className="sd-button">
-          {' '}
-          <OpenModalButton
-            className="hp-btn"
-            buttonText="Sign Up"
-            modalComponent={<SignupFormModal />}
-          />
-        </button>
+      <div className="landing-right">
+        <img
+          className="landing-img"
+          src="https://i.ibb.co/5Y0PJnL/1261047.jpg"
+          alt="1261047"
+          border="0"
+        ></img>
       </div>
     </div>
   );

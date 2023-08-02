@@ -12,8 +12,26 @@
 
 body {
   font-family: JosefinSans-Regular;
+  margin: 0;
 }
 
 .content {
-  margin-left: 100px;
+  margin-left: 82px;
+}
+
+.gen-button {
+  border: 2px solid black;
+  background-color: white;
+  margin: 5px;
+}
+
+.gen-btn {
+  border: none;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+}
+
+.gen-btn:hover {
+  cursor: pointer;
 }
