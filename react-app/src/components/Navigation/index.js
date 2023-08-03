@@ -17,33 +17,35 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="navbar-list">
-      <div>
-        <div className="navbar-item">
-          <NavLink className="navbar-link" exact to="/">
-            Home
-          </NavLink>
+      {sessionUser && (
+        <div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/">
+              Home
+            </NavLink>
+          </div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/teams">
+              My Teams
+            </NavLink>
+          </div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/pokemon">
+              My Pokemon
+            </NavLink>
+          </div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/pokemon/create">
+              Create Pokemon
+            </NavLink>
+          </div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/teams/create">
+              Create Team
+            </NavLink>
+          </div>
         </div>
-        <div className="navbar-item">
-          <NavLink className="navbar-link" exact to="/teams">
-            My Teams
-          </NavLink>
-        </div>
-        <div className="navbar-item">
-          <NavLink className="navbar-link" exact to="/pokemon">
-            My Pokemon
-          </NavLink>
-        </div>
-        <div className="navbar-item">
-          <NavLink className="navbar-link" exact to="/pokemon/create">
-            Create Pokemon
-          </NavLink>
-        </div>
-        <div className="navbar-item">
-          <NavLink className="navbar-link" exact to="/teams/create">
-            Create Team
-          </NavLink>
-        </div>
-      </div>
+      )}
       {sessionUser && (
         <div className="nav-button-div">
           <button className="nav-button" onClick={handleLogout}>
