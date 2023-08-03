@@ -8,6 +8,7 @@ import { getAllPokemon } from '../../store/pokemon';
 import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
+import EditTeamModal from '../EditTeamModal';
 
 function MyTeams() {
   const teams = useSelector((state) => state.teams);
@@ -66,7 +67,7 @@ function MyTeams() {
           <div key={index} className="team-card">
             <div className="team-card-items">Team Name: {team.team_name}</div>
             <div className="team-card-items">
-              Team Summary: {team.team_summary}
+              Team Summary: {team.team_summary.split('\n\n')}
             </div>
             {teamPokemonMap[team.id] && (
               <div className="team-card-pkmn-div">
@@ -87,7 +88,17 @@ function MyTeams() {
             )}
             <div className="team-card-buttons">
               <button className="gen-button">
-                <OpenModalButton className="gen-btn" buttonText={'Edit'} />
+                <OpenModalButton
+                  className="gen-btn"
+                  buttonText={'Edit'}
+                  modalComponent={
+                    <EditTeamModal
+                      id={team.id}
+                      teamName={team.team_name}
+                      teamSummary={team.team_summary}
+                    />
+                  }
+                />
               </button>
               <button className="gen-button">
                 <OpenModalButton className="gen-btn" buttonText={'Delete'} />

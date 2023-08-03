@@ -78,7 +78,7 @@ export const newTeam = (team) => async (dispatch) => {
 };
 
 export const deleteTeams = (team) => async (dispatch) => {
-  const response = await fetch(`/api/comments/${team.id}/delete`, {
+  const response = await fetch(`/api/teams/${team.id}/delete`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -90,6 +90,26 @@ export const deleteTeams = (team) => async (dispatch) => {
     const data = await response.json();
 
     dispatch(deleteTeam(data));
+    return data;
+  }
+};
+
+export const editTeams = (team) => async (dispatch) => {
+  console.log('Do we get here? Actually First');
+  const response = await fetch(`/api/teams/${team.id}/edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(team),
+  });
+  console.log('Do we get here? First');
+
+  if (response.ok) {
+    console.log('Do we get here? Second');
+    const data = await response.json();
+
+    dispatch(loadTeam(data));
     return data;
   }
 };
