@@ -19,11 +19,6 @@ function App() {
   console.log(sessionUser);
 
   useEffect(() => {
-    dispatch(getAllComments());
-    dispatch(getAllLikes());
-    dispatch(getAllParties());
-    dispatch(getAllPokemon());
-    dispatch(getAllTeams());
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 

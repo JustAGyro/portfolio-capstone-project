@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './HomePage.css';
 import { useSelector } from 'react-redux';
+import { getAllComments } from '../../store/comments';
+import { getAllLikes } from '../../store/likes';
+import { getAllParties } from '../../store/parties';
+import { getAllPokemon } from '../../store/pokemon';
+import { getAllTeams } from '../../store/teams';
+import { useDispatch } from 'react-redux';
 
 function HomePage() {
   const teams = useSelector((state) => Object.values(state.teams));
   const parties = useSelector((state) => Object.values(state.parties));
   const pokemon = useSelector((state) => Object.values(state.pokemon));
-  console.log(pokemon);
+  const dispatch = useDispatch();
 
-  // Function to find a Pokémon object by its ID
+  useEffect(() => {
+    dispatch(getAllComments());
+    dispatch(getAllLikes());
+    dispatch(getAllParties());
+    dispatch(getAllPokemon());
+    dispatch(getAllTeams());
+  }, [dispatch]);
+
   const findPokemonById = (id) => {
     return pokemon.find((pkmn) => pkmn.id === id);
   };
 
-  // Create a mapping of team IDs to arrays of Pokémon
   const teamPokemonMap = {};
 
   parties.forEach((party) => {

@@ -16,20 +16,42 @@ function Navigation({ isLoaded }) {
   };
 
   return (
-    <ul className="navbar-list">
-      <li>
-        <NavLink className="navbar-link" exact to="/">
-          Home
-        </NavLink>
-      </li>
+    <div className="navbar-list">
+      <div>
+        <div className="navbar-item">
+          <NavLink className="navbar-link" exact to="/">
+            Home
+          </NavLink>
+        </div>
+        <div className="navbar-item">
+          <NavLink className="navbar-link" exact to="/teams">
+            My Teams
+          </NavLink>
+        </div>
+        <div className="navbar-item">
+          <NavLink className="navbar-link" exact to="/pokemon">
+            My Pokemon
+          </NavLink>
+        </div>
+        <div className="navbar-item">
+          <NavLink className="navbar-link" exact to="/pokemon/create">
+            Create Pokemon
+          </NavLink>
+        </div>
+        <div className="navbar-item">
+          <NavLink className="navbar-link" exact to="/teams/create">
+            Create Team
+          </NavLink>
+        </div>
+      </div>
       {sessionUser && (
-        <li>
+        <div className="nav-button-div">
           <button className="nav-button" onClick={handleLogout}>
             Log out
           </button>
-        </li>
+        </div>
       )}
-    </ul>
+    </div>
   );
 }
 
