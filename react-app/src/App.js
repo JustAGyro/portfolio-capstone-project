@@ -3,13 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { authenticate } from './store/session';
 import Navigation from './components/Navigation';
-import { getAllComments } from './store/comments';
-import { getAllLikes } from './store/likes';
-import { getAllParties } from './store/parties';
-import { getAllPokemon } from './store/pokemon';
-import { getAllTeams } from './store/teams';
 import LandingPage from './components/LandingPage';
 import HomePage from './components/HomePage';
+import MyTeams from './components/MyTeams';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -32,6 +28,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               {sessionUser ? <HomePage /> : <LandingPage />}
+            </Route>
+            <Route exact patch="/teams">
+              <MyTeams />
             </Route>
           </Switch>
         )}
