@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage';
 import HomePage from './components/HomePage';
 import MyTeams from './components/MyTeams';
 import { useSelector } from 'react-redux';
+import MyPokemon from './components/MyPokemon';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,8 +30,11 @@ function App() {
             <Route exact path="/">
               {sessionUser ? <HomePage /> : <LandingPage />}
             </Route>
-            <Route exact patch="/teams">
+            <Route exact path="/teams">
               <MyTeams />
+            </Route>
+            <Route exact path="/pokemon">
+              <MyPokemon />
             </Route>
           </Switch>
         )}
