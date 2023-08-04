@@ -200,8 +200,9 @@ def delete_pokemon(id):
 @pokemon_routes.route('/search')
 @login_required
 def search_pokemon():
-    url = "https://pokeapi.co/api/v2/pokemon/"
-
+    url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+    print('DO WE GET HERE??????????')
+    print('AHHHHHHHHHHHHHHHHHHHHHHHHHHH')
     response = requests.get(url)
 
     if response.status_code==200:
