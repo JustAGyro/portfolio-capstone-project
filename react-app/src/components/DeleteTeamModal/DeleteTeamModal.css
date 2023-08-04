@@ -1,0 +1,9 @@
+.delete-modal-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  width: 18rem;
+}

@@ -9,6 +9,7 @@ import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import EditTeamModal from '../EditTeamModal';
+import DeleteTeamModal from '../DeleteTeamModal';
 
 function MyTeams() {
   const teams = useSelector((state) => state.teams);
@@ -101,7 +102,17 @@ function MyTeams() {
                 />
               </button>
               <button className="gen-button">
-                <OpenModalButton className="gen-btn" buttonText={'Delete'} />
+                <OpenModalButton
+                  className="gen-btn"
+                  buttonText={'Delete'}
+                  modalComponent={
+                    <DeleteTeamModal
+                      id={team.id}
+                      teamName={team.team_name}
+                      teamSummary={team.team_summary}
+                    />
+                  }
+                />
               </button>
             </div>
           </div>

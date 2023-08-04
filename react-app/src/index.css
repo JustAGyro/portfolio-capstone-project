@@ -27,6 +27,10 @@ body {
   margin: 5px;
 }
 
+.gen-button:hover {
+  cursor: pointer;
+}
+
 .gen-btn {
   border: none;
   height: 100%;
