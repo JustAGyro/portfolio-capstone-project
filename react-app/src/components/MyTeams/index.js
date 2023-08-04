@@ -65,9 +65,9 @@ function MyTeams() {
       <div className="team-cards">
         {Object.values(userTeams).map((team, index) => (
           <div key={index} className="team-card">
-            <div className="team-card-items">Team Name: {team.team_name}</div>
+            <h2 className="card-h2">"{team.team_name}"</h2>
             <div className="team-card-items">
-              Team Summary: {team.team_summary.split('\n\n')}
+              {team.team_summary.split('\n\n')}
             </div>
             {teamPokemonMap[team.id] && (
               <div className="team-card-pkmn-div">

@@ -11,11 +11,13 @@
 }
 
 .team-card {
-  border: 1px solid #ccc;
   padding: 0.5rem;
   max-width: 35rem;
-  box-shadow: 5px 5px 4px 1px rgba(127, 127, 127, 0.5);
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
   margin-bottom: 2rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  z-index: 0;
 }
 
 .team-card-items {
@@ -35,11 +37,9 @@
 
 .team-card-pkmn {
   position: relative;
-  z-index: 1;
+  z-index: 0;
   width: 5rem;
   height: 5rem;
-  border: 1px solid #ccc;
-  border-radius: 20px;
 }
 
 .team-card-pkmn-background {
@@ -57,7 +57,12 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
   background-image: url('https://i.ibb.co/vD2ZxPy/pokeball-logo-DC23868-CA1-seeklogo-com.png');
   background-size: 4rem 4rem;
   opacity: 0.25;
+}
+
+.card-h2 {
+  border-bottom: 4px solid #ef5350;
 }

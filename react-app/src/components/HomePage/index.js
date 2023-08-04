@@ -53,10 +53,8 @@ function HomePage() {
       <div className="team-cards">
         {Object.values(teams).map((team, index) => (
           <div key={index} className="team-card">
-            <div className="team-card-items">Team Name: {team.team_name}</div>
-            <div className="team-card-items">
-              Team Summary: {team.team_summary}
-            </div>
+            <h2 className="card-h2">"{team.team_name}"</h2>
+            <div className="team-card-items">{team.team_summary}</div>
             {teamPokemonMap[team.id] && (
               <div className="team-card-pkmn-div">
                 {teamPokemonMap[team.id].map((pkmn, pkmnIndex) => {

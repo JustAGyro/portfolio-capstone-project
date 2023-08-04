@@ -36,7 +36,9 @@ function MyPokemon() {
           const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pkmn.poke_dex}.png`;
           return (
             <div key={pkmn.id} className="pokemon-card">
-              <h2>{pkmn.name}</h2>
+              <h2 className="card-h2">
+                {pkmn.name}, "{pkmn.nick_name}"
+              </h2>
               <div className="pokemon-card-area">
                 <div className="pokemon-card-info">
                   <p>

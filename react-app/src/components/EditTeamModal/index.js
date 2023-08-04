@@ -29,6 +29,7 @@ function EditTeamModal({ id, teamName, teamSummary }) {
         <form className="modal-form-container" onSubmit={handleSubmit}>
           <h4 className="modal-h4">Team Name:</h4>
           <input
+            className="modal-input"
             type="text"
             value={editTeamName}
             onChange={(e) => setEditTeamName(e.target.value)}
@@ -36,11 +37,14 @@ function EditTeamModal({ id, teamName, teamSummary }) {
           />
           <h4 className="modal-h4">Team Summary:</h4>
           <textarea
+            className="modal-textarea"
             value={editTeamSummary}
             onChange={(e) => setEditTeamSummary(e.target.value)}
             required
           />
-          <button type="submit">Save Changes</button>
+          <button className="gen-button" type="submit">
+            Save Changes
+          </button>
         </form>
       </div>
     </>

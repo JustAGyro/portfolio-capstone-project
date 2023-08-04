@@ -7,6 +7,9 @@
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
 }
 
 .modal-h4 {
@@ -15,4 +18,18 @@
 
 .modal-h1 {
   margin-bottom: -0.5rem;
+  border-bottom: 4px solid #ef5350;
+}
+
+.modal-input {
+  background-color: #ebf5f0;
+  border: 2px solid #d0e1d8;
+}
+
+.modal-textarea {
+  height: 15rem;
+  width: 20rem;
+  background-color: #ebf5f0;
+  border: 2px solid #d0e1d8;
+  margin-bottom: 1rem;
 }
