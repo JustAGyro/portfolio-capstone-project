@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify,request
 from flask_login import login_required, current_user
 from app.models import Pokemon, User, db
+import requests
 
 pokemon_routes = Blueprint('pokemon', __name__)
 
@@ -195,3 +196,16 @@ def delete_pokemon(id):
         db.session.delete(pokemon)
         db.session.commit()
         return {'res': 'Pokemon Successfully Deleted'}
+
+@pokemon_routes.route('/search')
+@login_required
+def search_pokemon():
+    url = "https://pokeapi.co/api/v2/pokemon/"
+
+    response = requests.get(url)
+
+    if response.status_code==200:
+        data = response.json()
+        return jsonify(data)
+    else:
+        return jsonify("Error")
