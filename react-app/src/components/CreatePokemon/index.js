@@ -9,6 +9,7 @@ function CreatePokemon() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showResults, setShowResults] = useState(false);
   const [pokemonData, setPokemonData] = useState({});
+  const [heldItems, setHeldItems] = useState([]);
   const [pkmnId, setPkmnId] = useState('');
   const searchRef = useRef(null);
 
@@ -21,8 +22,8 @@ function CreatePokemon() {
   const [typeOne, setTypeOne] = useState('');
   const [typeTwo, setTypeTwo] = useState('');
   const [teraType, setTeraType] = useState('');
-  const [item, setItem] = useState('');
-  const [ability, setAbility] = useState('');
+  const [item, setItem] = useState('-');
+  const [ability, setAbility] = useState('-');
   const [nature, setNature] = useState('');
   const [moveOne, setMoveOne] = useState('');
   const [moveTwo, setMoveTwo] = useState('');
@@ -49,15 +50,18 @@ function CreatePokemon() {
   const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeDex}.png`;
   const typeOneImage = `/images/${typeOne}.png`;
   const typeTwoImage = `/images/${typeTwo}.png`;
+  const itemImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.toLowerCase()}.png`;
 
   //useStates for select fields (movesets, etc.)
   const [moveSelections, setMoveSelections] = useState([]);
   const [abilitySelections, setAbilitySelections] = useState([]);
   const [natureSelections, setNatureSelections] = useState([]);
-  const [itemSelection, setItemSelection] = useState([]);
 
   //useStates for visibility of input fields
   const [nickNameVisible, setNickNameVisible] = useState(false);
+  const [abilityItemVisible, setAbilityItemVisible] = useState(false);
+  const [movesVisible, setMovesVisible] = useState(false);
+  const [statsVisible, setStatsVisible] = useState(false);
 
   //Grab pokemon for search
   const fetchPokemon = () => {
@@ -66,8 +70,16 @@ function CreatePokemon() {
       .then((data) => setResults(data.results));
   };
 
+  //Grab items
+  const fetchItems = () => {
+    fetch(`/api/pokemon/items`)
+      .then((response) => response.json())
+      .then((data) => setHeldItems(data.items));
+  };
+
   useEffect(() => {
     fetchPokemon();
+    fetchItems();
   }, []);
 
   //Grab pokemon to customize and save to db
@@ -93,6 +105,15 @@ function CreatePokemon() {
       if (pokemonData.types) {
         setTypeTwo(pokemonData.types[1]?.type.name);
       }
+
+      if (pokemonData.abilities) {
+        setAbilitySelections(pokemonData.abilities);
+      }
+
+      if (pokemonData.moves) {
+        setMoveSelections(pokemonData.moves);
+      }
+
       // console.log(pokemonData.id);
       // console.log(pokemonData.name);
       // console.log(pokemonData.types[0].type.name);
@@ -107,8 +128,6 @@ function CreatePokemon() {
     setSearchQuery(event.target.value);
     setShowResults(true);
   };
-
-  console.log('hi');
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -145,6 +164,40 @@ function CreatePokemon() {
     }
   };
 
+  const openAbilityItem = (e) => {
+    e.preventDefault();
+    setAbilityItemVisible(true);
+    if (abilityItemVisible) {
+      setAbilityItemVisible(false);
+    }
+  };
+
+  const openMoves = (e) => {
+    e.preventDefault();
+    setMovesVisible(true);
+    if (movesVisible) {
+      setMovesVisible(false);
+    }
+  };
+
+  const openStats = (e) => {
+    e.preventDefault();
+    setStatsVisible(true);
+    if (statsVisible) {
+      setStatsVisible(false);
+    }
+  };
+
+  //Calculate stats
+  const totalHp = (2 * baseHp + ivHp + (evHp / 4) * 50) / 100 + 50 + 10;
+  const totalAtk = (2 * baseAtk + ivAtk + (evAtk / 4) * 50) / 100 + 5;
+  const totalDef = (2 * baseDef + ivDef + (evDef / 4) * 50) / 100 + 5;
+  const totalSpAtk = (2 * baseSpAtk + ivSpAtk + (evSpAtk / 4) * 50) / 100 + 5;
+  const totalSpDef = (2 * baseSpDef + ivSpDef + (evSpDef / 4) * 50) / 100 + 5;
+  const totalSpeed = (2 * baseSpeed + ivSpeed + (evSpeed / 4) * 50) / 100 + 5;
+
+  console.log(totalHp);
+  console.log(moveSelections);
   return (
     <>
       <div className="create-pokemon-container">
@@ -213,18 +266,120 @@ function CreatePokemon() {
                       className="customize-pkmn-img"
                     />
                   </div>
-                  <div className="pokemon-moves">
-                    <div>
+                  <div className="pokemon-types-ability-item">
+                    <div className="pokemon-types">
                       {' '}
                       <img src={typeOneImage} alt={name} />
                       <img src={typeTwoImage} alt={name} />
                     </div>
+                    <div className="pokemon-abilities">
+                      <p>Ability</p>
+                      <div className="ability-div" onClick={openAbilityItem}>
+                        {ability}
+                      </div>
+                    </div>
+                    <div className="pokemon-abilities">
+                      <p>Item</p>
+                      <div className="ability-div" onClick={openAbilityItem}>
+                        <img src={itemImageUrl}></img>
+                        {item}
+                      </div>
+                    </div>
                   </div>
-                  <div className="pokemon-moves">Moves!</div>
-                  <div className="pokemon-moves">Stats!</div>
+                  <div className="pokemon-moves">
+                    {' '}
+                    <div className="pokemon-abilities">
+                      <p>Move One</p>
+                      <div className="ability-div" onClick={openMoves}>
+                        {moveOne}
+                      </div>
+                    </div>
+                    <div className="pokemon-abilities">
+                      <p>Move Two</p>
+                      <div className="ability-div" onClick={openMoves}>
+                        {moveTwo}
+                      </div>
+                    </div>
+                    <div className="pokemon-abilities">
+                      <p>Move Three</p>
+                      <div className="ability-div" onClick={openMoves}>
+                        {moveThree}
+                      </div>
+                    </div>
+                    <div className="pokemon-abilities">
+                      <p>Move Four</p>
+                      <div className="ability-div" onClick={openMoves}>
+                        {moveFour}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pokemon-stats">
+                    <p>Stats</p>
+                    <div className="stat-div" onClick={openStats}>
+                      <span className="stat-row">
+                        <label>
+                          HP
+                          <div
+                            className="stat-bar-hp"
+                            style={{ width: `${(totalHp / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <span className="stat-row">
+                        <label>
+                          Atk
+                          <div
+                            className="stat-bar-atk"
+                            style={{ width: `${(totalAtk / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <span className="stat-row">
+                        <label>
+                          Def
+                          <div
+                            className="stat-bar-def"
+                            style={{ width: `${(totalDef / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <span className="stat-row">
+                        <label>
+                          SpAtk
+                          <div
+                            className="stat-bar-spatk"
+                            style={{ width: `${(totalSpAtk / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <span className="stat-row">
+                        <label>
+                          SpDef
+                          <div
+                            className="stat-bar-spdef"
+                            style={{ width: `${(totalSpDef / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <span className="stat-row">
+                        <label>
+                          Speed
+                          <div
+                            className="stat-bar-speed"
+                            style={{ width: `${(totalSpeed / 1000) * 100}%` }}
+                          ></div>
+                        </label>
+                      </span>
+                      <div className="pokemon-nature">
+                        <p>Nature</p>
+                        <div className="ability-div">{nature}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="custom-pokemon-form-container">
+                <h2>Customization Fields</h2>
                 <form>
                   {nickNameVisible && (
                     <div className="nickName-input">
@@ -292,6 +447,132 @@ function CreatePokemon() {
                         >
                           X
                         </button>
+                      </form>
+                    </div>
+                  )}
+                  {abilityItemVisible && (
+                    <div className="ability-item-input">
+                      <form className="ability-item-info">
+                        <label>
+                          Ability:
+                          <select
+                            value={ability}
+                            onChange={(e) => setAbility(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {abilitySelections.map((ability) => (
+                              <option key={ability.ability}>
+                                {ability.ability.name.charAt(0).toUpperCase() +
+                                  ability.ability.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Item:
+                          <select
+                            value={item}
+                            onChange={(e) => setItem(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {heldItems.map((item) => (
+                              <option key={item.name}>
+                                {item.name.charAt(0).toUpperCase() +
+                                  item.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <button
+                          className="customize-pokemon-button"
+                          onClick={(e) => openAbilityItem(e)}
+                        >
+                          X
+                        </button>
+                      </form>
+                    </div>
+                  )}
+                  {movesVisible && (
+                    <div className="movelist-input-container">
+                      <form className="movelist-input-form">
+                        <label>
+                          Move One
+                          <select
+                            value={moveOne}
+                            onChange={(e) => setMoveOne(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {moveSelections.map((move) => (
+                              <option key={move.move.name}>
+                                {move.move.name.charAt(0).toUpperCase() +
+                                  move.move.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Move Two
+                          <select
+                            value={moveTwo}
+                            onChange={(e) => setMoveTwo(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {moveSelections.map((move) => (
+                              <option key={move.move.name}>
+                                {move.move.name.charAt(0).toUpperCase() +
+                                  move.move.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Move Three
+                          <select
+                            value={moveThree}
+                            onChange={(e) => setMoveThree(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {moveSelections.map((move) => (
+                              <option key={move.move.name}>
+                                {move.move.name.charAt(0).toUpperCase() +
+                                  move.move.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <button
+                          className="customize-pokemon-button"
+                          onClick={(e) => openMoves(e)}
+                        >
+                          X
+                        </button>
+                        <label>
+                          Move Four
+                          <select
+                            value={moveFour}
+                            onChange={(e) => setMoveFour(e.target.value)}
+                          >
+                            <option selected value="">
+                              Select
+                            </option>
+                            {moveSelections.map((move) => (
+                              <option key={move.move.name}>
+                                {move.move.name.charAt(0).toUpperCase() +
+                                  move.move.name.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
                       </form>
                     </div>
                   )}

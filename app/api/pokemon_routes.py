@@ -221,3 +221,16 @@ def search_one_pokemon(pkmnId):
         return jsonify(data)
     else:
         return jsonify("Error")
+
+@pokemon_routes.route('/items')
+@login_required
+def held_items():
+
+    url = f"https://pokeapi.co/api/v2/item-category/held-items"
+    response = requests.get(url)
+
+    if response.status_code==200:
+        data = response.json()
+        return jsonify(data)
+    else:
+        return jsonify("Error")
