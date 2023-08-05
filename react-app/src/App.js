@@ -8,7 +8,7 @@ import HomePage from './components/HomePage';
 import MyTeams from './components/MyTeams';
 import { useSelector } from 'react-redux';
 import MyPokemon from './components/MyPokemon';
-import CreateTeams from './components/CreateTeams';
+import CreatePokemon from './components/CreatePokemon';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function App() {
               <MyPokemon />
             </Route>
             <Route exact path="/teams/create">
-              <CreateTeams />
+              <CreatePokemon />
             </Route>
           </Switch>
         )}
