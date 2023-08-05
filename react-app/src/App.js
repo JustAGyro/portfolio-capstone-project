@@ -37,7 +37,7 @@ function App() {
             <Route exact path="/pokemon">
               <MyPokemon />
             </Route>
-            <Route exact path="/teams/create">
+            <Route exact path="/pokemon/create">
               <CreatePokemon />
             </Route>
           </Switch>

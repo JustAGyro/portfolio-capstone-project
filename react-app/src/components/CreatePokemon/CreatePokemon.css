@@ -1,0 +1,53 @@
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar input {
+  background-color: #ebf5f0;
+  border: 2px solid #d0e1d8;
+  height: 1.5rem;
+  width: 20rem;
+}
+
+.search-bar input:focus {
+  background-color: #dbe6e0;
+  outline: none;
+}
+
+.results-list {
+  height: 10rem;
+  overflow-y: auto;
+  width: 20.5rem;
+  margin-top: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #d0e1d8;
+}
+
+.result-item {
+  margin-top: 0.2rem;
+}
+
+.result-item:hover {
+  background-color: #ebf5f0;
+  cursor: pointer;
+}
+
+.customize-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.custom-pokemon-card {
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  height: 20rem;
+  width: 50rem;
+  padding: 1rem;
+}
