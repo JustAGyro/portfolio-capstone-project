@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CreatePokemon.css';
+import './Rangeslider.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { newPokemon } from '../../store/pokemon';
+import { useHistory } from 'react-router-dom';
 
 function CreatePokemon() {
   const [results, setResults] = useState([]);
@@ -11,7 +14,41 @@ function CreatePokemon() {
   const [pokemonData, setPokemonData] = useState({});
   const [heldItems, setHeldItems] = useState([]);
   const [pkmnId, setPkmnId] = useState('');
+  const [nickNameError, setNickNameError] = useState(false);
+  const [requiredError, setRequiredError] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const searchRef = useRef(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  //Errors
+  useEffect(() => {
+    if (nickName.length > 25) {
+      setNickNameError(true);
+      setDisabled(true);
+    } else {
+      setNickNameError(false);
+      setDisabled(false);
+    }
+
+    if (
+      gender.length < 2 ||
+      teraType.length < 2 ||
+      item.length < 2 ||
+      ability.length < 2 ||
+      nature.length < 2 ||
+      moveOne.length < 2 ||
+      moveTwo.length < 2 ||
+      moveThree.length < 2 ||
+      moveFour.length < 2
+    ) {
+      setRequiredError(true);
+      setDisabled(true);
+    } else {
+      setRequiredError(false);
+      setDisabled(false);
+    }
+  });
 
   //useStates for pokemon databasefields
   const [pokeDex, setPokeDex] = useState(0);
@@ -19,6 +56,7 @@ function CreatePokemon() {
   const [nickName, setNickName] = useState('');
   const [gender, setGender] = useState('-');
   const [shiny, setShiny] = useState('No');
+  const [shinyBoolean, setShinyBoolean] = useState(false);
   const [typeOne, setTypeOne] = useState('');
   const [typeTwo, setTypeTwo] = useState('');
   const [teraType, setTeraType] = useState('');
@@ -77,9 +115,17 @@ function CreatePokemon() {
       .then((data) => setHeldItems(data.items));
   };
 
+  //Grab natures
+  const fetchNatures = () => {
+    fetch(`/api/pokemon/natures`)
+      .then((response) => response.json())
+      .then((data) => setNatureSelections(data.results));
+  };
+
   useEffect(() => {
     fetchPokemon();
     fetchItems();
+    fetchNatures();
   }, []);
 
   //Grab pokemon to customize and save to db
@@ -92,6 +138,29 @@ function CreatePokemon() {
   //Grab Pokemon & load all the states to properly show data
   useEffect(() => {
     fetchSelectedPokemon(pkmnId);
+    setNickName('');
+    setGender('');
+    setShiny('No');
+    setTeraType('');
+    setAbility('');
+    setItem('');
+    setMoveOne('');
+    setMoveTwo('');
+    setMoveThree('');
+    setMoveFour('');
+    setEvHp(0);
+    setEvAtk(0);
+    setEvDef(0);
+    setEvSpAtk(0);
+    setEvSpDef(0);
+    setEvSpeed(0);
+    setIvHp(0);
+    setIvAtk(0);
+    setIvDef(0);
+    setIvSpAtk(0);
+    setIvSpDef(0);
+    setIvSpeed(0);
+    setNature('');
   }, [selectedItem]);
 
   useEffect(() => {
@@ -114,12 +183,18 @@ function CreatePokemon() {
         setMoveSelections(pokemonData.moves);
       }
 
-      // console.log(pokemonData.id);
-      // console.log(pokemonData.name);
-      // console.log(pokemonData.types[0].type.name);
-      // console.log(pokemonData.types[1]?.type.name);
-      // console.log(pokemonData.abilities);
-      // console.log(pokemonData.moves);
+      if (pokemonData.name) {
+        setName(pokemonData.name);
+      }
+
+      if (pokemonData.stats) {
+        setBaseHp(pokemonData?.stats[0]?.base_stat);
+        setBaseAtk(pokemonData?.stats[1]?.base_stat);
+        setBaseDef(pokemonData?.stats[2]?.base_stat);
+        setBaseSpAtk(pokemonData?.stats[3]?.base_stat);
+        setBaseSpDef(pokemonData?.stats[4]?.base_stat);
+        setBaseSpeed(pokemonData?.stats[5]?.base_stat);
+      }
     }
   }, [pokemonData]);
 
@@ -189,15 +264,92 @@ function CreatePokemon() {
   };
 
   //Calculate stats
-  const totalHp = (2 * baseHp + ivHp + (evHp / 4) * 50) / 100 + 50 + 10;
-  const totalAtk = (2 * baseAtk + ivAtk + (evAtk / 4) * 50) / 100 + 5;
-  const totalDef = (2 * baseDef + ivDef + (evDef / 4) * 50) / 100 + 5;
-  const totalSpAtk = (2 * baseSpAtk + ivSpAtk + (evSpAtk / 4) * 50) / 100 + 5;
-  const totalSpDef = (2 * baseSpDef + ivSpDef + (evSpDef / 4) * 50) / 100 + 5;
-  const totalSpeed = (2 * baseSpeed + ivSpeed + (evSpeed / 4) * 50) / 100 + 5;
+  // prettier-ignore
+  const totalHp = ((2 * baseHp + ivHp + (evHp / 4)) * 50 / 100) + 50 + 10;
+  // prettier-ignore
+  const totalAtk = ((2 * baseAtk + ivAtk + (evAtk / 4)) * 50) / 100 + 5;
+  // prettier-ignore
+  const totalDef = ((2 * baseDef + ivDef + (evDef / 4)) * 50) / 100 + 5;
+  // prettier-ignore
+  const totalSpAtk = ((2 * baseSpAtk + ivSpAtk + (evSpAtk / 4)) * 50) / 100 + 5;
+  // prettier-ignore
+  const totalSpDef = ((2 * baseSpDef + ivSpDef + (evSpDef / 4)) * 50) / 100 + 5;
+  // prettier-ignore
+  const totalSpeed = ((2 * baseSpeed + ivSpeed + (evSpeed / 4)) * 50) / 100 + 5;
+  const remainingEv = 508 - evHp - evAtk - evDef - evSpAtk - evSpDef - evSpeed;
 
-  console.log(totalHp);
-  console.log(moveSelections);
+  //Setting max for slider values
+  const [maxValues, setMaxValues] = useState({
+    hp: 508 - (evAtk + evDef + evSpAtk + evSpDef + evSpeed),
+    atk: 508 - (evHp + evDef + evSpAtk + evSpDef + evSpeed),
+    def: 508 - (evHp + evAtk + evSpAtk + evSpDef + evSpeed),
+    spAtk: 508 - (evHp + evAtk + evDef + evSpDef + evSpeed),
+    spDef: 508 - (evHp + evAtk + evDef + evSpAtk + evSpeed),
+    speed: 508 - (evHp + evAtk + evDef + evSpAtk + evSpDef),
+  });
+
+  const updateMaxValues = () => {
+    setMaxValues({
+      hp: 508 - (evAtk + evDef + evSpAtk + evSpDef + evSpeed),
+      atk: 508 - (evHp + evDef + evSpAtk + evSpDef + evSpeed),
+      def: 508 - (evHp + evAtk + evSpAtk + evSpDef + evSpeed),
+      spAtk: 508 - (evHp + evAtk + evDef + evSpDef + evSpeed),
+      spDef: 508 - (evHp + evAtk + evDef + evSpAtk + evSpeed),
+      speed: 508 - (evHp + evAtk + evDef + evSpAtk + evSpDef),
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (shiny === 'No' || shiny === 'no') {
+      setShinyBoolean(false);
+    } else if (shiny === 'Yes' || shiny === 'yes') {
+      setShinyBoolean(true);
+    }
+
+    const payload = {
+      pokeDex: pokeDex,
+      name: name,
+      nickName: nickName,
+      gender: gender,
+      shiny: shinyBoolean,
+      typeOne: typeOne,
+      typeTwo: typeTwo,
+      teraType: teraType,
+      item: item,
+      ability: ability,
+      nature: nature,
+      moveOne: moveOne,
+      moveTwo: moveTwo,
+      moveThree: moveThree,
+      moveFour: moveFour,
+      baseHp: baseHp,
+      baseAtk: baseAtk,
+      baseDef: baseDef,
+      baseSpAtk: baseSpAtk,
+      baseSpDef: baseSpDef,
+      baseSpeed: baseSpeed,
+      evHp: evHp,
+      evAtk: evAtk,
+      evDef: evDef,
+      evSpAtk: evSpAtk,
+      evSpDef: evSpDef,
+      evSpeed: evSpeed,
+      ivHp: ivHp,
+      ivAtk: ivAtk,
+      ivDef: ivDef,
+      ivSpAtk: ivSpAtk,
+      ivSpDef: ivSpDef,
+      ivSpeed: ivSpeed,
+    };
+
+    dispatch(newPokemon(payload));
+    history.push('/pokemon');
+  };
+
+  console.log(natureSelections);
+
   return (
     <>
       <div className="create-pokemon-container">
@@ -321,7 +473,7 @@ function CreatePokemon() {
                           HP
                           <div
                             className="stat-bar-hp"
-                            style={{ width: `${(totalHp / 1000) * 100}%` }}
+                            style={{ width: `${(totalHp / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -330,7 +482,7 @@ function CreatePokemon() {
                           Atk
                           <div
                             className="stat-bar-atk"
-                            style={{ width: `${(totalAtk / 1000) * 100}%` }}
+                            style={{ width: `${(totalAtk / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -339,7 +491,7 @@ function CreatePokemon() {
                           Def
                           <div
                             className="stat-bar-def"
-                            style={{ width: `${(totalDef / 1000) * 100}%` }}
+                            style={{ width: `${(totalDef / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -348,7 +500,7 @@ function CreatePokemon() {
                           SpAtk
                           <div
                             className="stat-bar-spatk"
-                            style={{ width: `${(totalSpAtk / 1000) * 100}%` }}
+                            style={{ width: `${(totalSpAtk / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -357,7 +509,7 @@ function CreatePokemon() {
                           SpDef
                           <div
                             className="stat-bar-spdef"
-                            style={{ width: `${(totalSpDef / 1000) * 100}%` }}
+                            style={{ width: `${(totalSpDef / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -366,7 +518,7 @@ function CreatePokemon() {
                           Speed
                           <div
                             className="stat-bar-speed"
-                            style={{ width: `${(totalSpeed / 1000) * 100}%` }}
+                            style={{ width: `${(totalSpeed / 300) * 100}%` }}
                           ></div>
                         </label>
                       </span>
@@ -377,13 +529,18 @@ function CreatePokemon() {
                     </div>
                   </div>
                 </div>
+                {requiredError && (
+                  <p className="error-msg">
+                    All fields are required besdies Nick Name & Stats
+                  </p>
+                )}
               </div>
               <div className="custom-pokemon-form-container">
                 <h2>Customization Fields</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                   {nickNameVisible && (
                     <div className="nickName-input">
-                      <form className="general-info">
+                      <div className="general-info">
                         <label>
                           Nick Name:
                           <input
@@ -447,12 +604,17 @@ function CreatePokemon() {
                         >
                           X
                         </button>
-                      </form>
+                      </div>
+                      {nickNameError && (
+                        <p className="error-msg">
+                          Nick name must be less than 25 characters long
+                        </p>
+                      )}
                     </div>
                   )}
                   {abilityItemVisible && (
                     <div className="ability-item-input">
-                      <form className="ability-item-info">
+                      <div className="ability-item-info">
                         <label>
                           Ability:
                           <select
@@ -493,12 +655,12 @@ function CreatePokemon() {
                         >
                           X
                         </button>
-                      </form>
+                      </div>
                     </div>
                   )}
                   {movesVisible && (
                     <div className="movelist-input-container">
-                      <form className="movelist-input-form">
+                      <div className="movelist-input-form">
                         <label>
                           Move One
                           <select
@@ -509,7 +671,7 @@ function CreatePokemon() {
                               Select
                             </option>
                             {moveSelections.map((move) => (
-                              <option key={move.move.name}>
+                              <option key="m1">
                                 {move.move.name.charAt(0).toUpperCase() +
                                   move.move.name.slice(1)}
                               </option>
@@ -526,7 +688,7 @@ function CreatePokemon() {
                               Select
                             </option>
                             {moveSelections.map((move) => (
-                              <option key={move.move.name}>
+                              <option key="m2">
                                 {move.move.name.charAt(0).toUpperCase() +
                                   move.move.name.slice(1)}
                               </option>
@@ -543,7 +705,7 @@ function CreatePokemon() {
                               Select
                             </option>
                             {moveSelections.map((move) => (
-                              <option key={move.move.name}>
+                              <option key="m3">
                                 {move.move.name.charAt(0).toUpperCase() +
                                   move.move.name.slice(1)}
                               </option>
@@ -566,16 +728,276 @@ function CreatePokemon() {
                               Select
                             </option>
                             {moveSelections.map((move) => (
-                              <option key={move.move.name}>
+                              <option key="m4">
                                 {move.move.name.charAt(0).toUpperCase() +
                                   move.move.name.slice(1)}
                               </option>
                             ))}
                           </select>
                         </label>
-                      </form>
+                      </div>
                     </div>
                   )}
+                  {statsVisible && (
+                    <div className="stats-input-container">
+                      <div className="stats-input-basestats">
+                        <p>Base Stats</p>
+                        <div className="base-stats-div">
+                          <div className="base-stats-name">
+                            <div>Hp</div>
+                            <div>Atk</div>
+                            <div>Def</div>
+                            <div>SpAtk</div>
+                            <div>SpDef</div>
+                            <div>Speed</div>
+                          </div>
+                          <div className="base-stats-amt">
+                            <div>{baseHp}</div>
+                            <div>{baseAtk}</div>
+                            <div>{baseDef}</div>
+                            <div>{baseSpAtk}</div>
+                            <div>{baseSpDef}</div>
+                            <div>{baseSpeed}</div>
+                          </div>
+                        </div>
+                        <div className="nature-input">
+                          <label>
+                            Nature
+                            <select
+                              value={nature}
+                              onChange={(e) => setNature(e.target.value)}
+                            >
+                              <option selected value="">
+                                Select
+                              </option>
+                              {natureSelections.map((nature) => (
+                                <option key={nature.name}>
+                                  {nature.name.charAt(0).toUpperCase() +
+                                    nature.name.slice(1)}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+                      <div className="stats-input-evstats">
+                        <p>EV Points remaining: {remainingEv} </p>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">Hp</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider1"
+                            name="slider1"
+                            min="0"
+                            max={Math.min(252, maxValues.hp)}
+                            step="4"
+                            value={evHp}
+                            onChange={(e) => {
+                              setEvHp(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider1">{evHp}</output>
+                        </div>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">Atk</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider2"
+                            name="slider2"
+                            min="0"
+                            max={Math.min(252, maxValues.atk)}
+                            step="4"
+                            value={evAtk}
+                            onChange={(e) => {
+                              setEvAtk(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider2">{evAtk}</output>
+                        </div>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">Def</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider3"
+                            name="slider3"
+                            min="0"
+                            max={Math.min(252, maxValues.def)}
+                            step="4"
+                            value={evDef}
+                            onChange={(e) => {
+                              setEvDef(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider3">{evDef}</output>
+                        </div>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">SpAtk</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider4"
+                            name="slider4"
+                            min="0"
+                            max={Math.min(252, maxValues.spAtk)}
+                            step="4"
+                            value={evSpAtk}
+                            onChange={(e) => {
+                              setEvSpAtk(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider4">{evSpAtk}</output>
+                        </div>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">SpDef</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider5"
+                            name="slider5"
+                            min="0"
+                            max={Math.min(252, maxValues.spDef)}
+                            step="4"
+                            value={evSpDef}
+                            onChange={(e) => {
+                              setEvSpDef(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider5">{evSpDef}</output>
+                        </div>
+                        <div className="stat-slider-div">
+                          <div className="stat-slider-label">Speed</div>
+                          <input
+                            className="evSlider"
+                            type="range"
+                            id="slider6"
+                            name="slider6"
+                            min="0"
+                            max={Math.min(252, maxValues.speed)}
+                            step="4"
+                            value={evSpeed}
+                            onChange={(e) => {
+                              setEvSpeed(parseInt(e.target.value, 10));
+                              updateMaxValues();
+                            }}
+                          />
+                          <output htmlFor="slider6">{evSpeed}</output>
+                        </div>
+                      </div>
+                      <div className="iv-input-container">
+                        <p>IV Spread</p>
+                        <div className="base-stats-div">
+                          <div className="iv-stats-name">
+                            <div>Hp</div>
+                            <div>Atk</div>
+                            <div>Def</div>
+                            <div>SpAtk</div>
+                            <div>SpDef</div>
+                            <div>Speed</div>
+                          </div>
+                          <div className="iv-stats-amt">
+                            <div>
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivHp}
+                                onChange={(e) =>
+                                  setIvHp(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                            <div>
+                              {' '}
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivAtk}
+                                onChange={(e) =>
+                                  setIvAtk(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                            <div>
+                              {' '}
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivDef}
+                                onChange={(e) =>
+                                  setIvDef(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                            <div>
+                              {' '}
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivSpAtk}
+                                onChange={(e) =>
+                                  setIvSpAtk(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                            <div>
+                              {' '}
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivSpDef}
+                                onChange={(e) =>
+                                  setIvSpDef(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                            <div>
+                              {' '}
+                              <input
+                                className="iv-input"
+                                type="number"
+                                min="0"
+                                max="31"
+                                value={ivSpeed}
+                                onChange={(e) =>
+                                  setIvSpeed(parseInt(e.target.value), 10)
+                                }
+                              ></input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className="customize-pokemon-button"
+                        onClick={(e) => openStats(e)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  )}
+                  <button
+                    id="submit-button"
+                    className="gen-button"
+                    type="submit"
+                  >
+                    Submit Pokemon
+                  </button>
                 </form>
               </div>
             </div>

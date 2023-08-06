@@ -68,10 +68,10 @@ export const newPokemon = (pokemon) => async (dispatch) => {
     },
     body: JSON.stringify(pokemon),
   });
-
+  console.log('Do we get here 1!');
   if (response.ok) {
     const data = await response.json();
-
+    console.log('Do we get here 2!');
     dispatch(loadPokemon(data));
     return data;
   }

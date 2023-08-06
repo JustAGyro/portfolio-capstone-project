@@ -63,6 +63,7 @@ def create_pokemon():
     iv_speed = data.get('ivSpeed')
 
     new_pokemon = Pokemon(
+        user_id = user_id,
         poke_dex = poke_dex,
         name = name,
         nick_name = nick_name,
@@ -227,6 +228,19 @@ def search_one_pokemon(pkmnId):
 def held_items():
 
     url = f"https://pokeapi.co/api/v2/item-category/held-items"
+    response = requests.get(url)
+
+    if response.status_code==200:
+        data = response.json()
+        return jsonify(data)
+    else:
+        return jsonify("Error")
+
+@pokemon_routes.route('/natures')
+@login_required
+def natures():
+
+    url= f"https://pokeapi.co/api/v2/nature?limit=300"
     response = requests.get(url)
 
     if response.status_code==200:

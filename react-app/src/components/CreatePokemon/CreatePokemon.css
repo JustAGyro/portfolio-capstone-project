@@ -264,3 +264,70 @@
   margin-top: -1.5rem;
   margin-left: -3.3rem;
 }
+
+.evSlider {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.stats-input-evstats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stat-slider-div {
+  display: flex;
+  align-items: center;
+}
+
+.stat-slider-label {
+  width: 2.5rem;
+}
+
+.stats-input-evstats p {
+  margin-bottom: 0.2rem;
+}
+
+.stats-input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.base-stats-div {
+  display: flex;
+}
+
+.base-stats-name {
+  width: 5rem;
+}
+
+.iv-stats-name {
+  width: 5rem;
+}
+
+.iv-stats-name div {
+  height: 1.7rem;
+}
+
+.iv-input {
+  width: 3rem;
+}
+
+.iv-stats-amt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.nature-input {
+  margin-top: 1rem;
+}
+
+.error-msg {
+  color: red;
+}
+
+#submit-button {
+  margin-top: 1rem;
+}
