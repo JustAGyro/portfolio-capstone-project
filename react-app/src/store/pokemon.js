@@ -108,7 +108,7 @@ export const deletePokemons = (pokemon) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    dispatch(deletePokemon(data));
+    dispatch(deletePokemon(pokemon));
     return data;
   }
 };

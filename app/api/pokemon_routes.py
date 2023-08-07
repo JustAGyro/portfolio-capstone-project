@@ -194,7 +194,7 @@ def delete_pokemon(id):
     if current_user.id == pokemon.user_id:
         db.session.delete(pokemon)
         db.session.commit()
-        return {'res': 'Pokemon Successfully Deleted'}
+        return jsonify(id), 200
 
 @pokemon_routes.route('/search')
 @login_required
