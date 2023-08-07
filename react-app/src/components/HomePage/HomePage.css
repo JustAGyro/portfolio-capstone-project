@@ -2,17 +2,31 @@
   margin-left: 20px;
 }
 
+.cards-summary-container {
+  display: flex;
+}
+
 .team-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding: 2rem;
+}
+
+.team-cards-summary-open {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10rem;
+  row-gap: 2rem;
   margin-top: 1rem;
   padding: 2rem;
 }
 
 .team-card {
   padding: 0.5rem;
-  max-width: 35rem;
+  max-width: 30rem;
+  min-width: 30rem;
   box-shadow: -10px -10px 1px 1px #d0e1d8;
   margin-bottom: 2rem;
   border-radius: 10px;
@@ -65,4 +79,36 @@
 
 .card-h2 {
   border-bottom: 4px solid #ef5350;
+}
+
+.team-summary-div {
+  padding: 0.5rem;
+  max-width: 35rem;
+  min-width: 35rem;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  z-index: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 0;
+  position: relative;
+}
+
+.summary-display {
+  margin-top: 0;
+  white-space: pre-line;
+}
+
+.summary-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+}
+
+.team-buttons {
+  display: flex;
+  justify-content: space-between;
 }
