@@ -995,6 +995,7 @@ function CreatePokemon() {
                     id="submit-button"
                     className="gen-button"
                     type="submit"
+                    disabled={disabled}
                   >
                     Submit Pokemon
                   </button>

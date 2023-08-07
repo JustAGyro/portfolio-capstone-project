@@ -331,3 +331,67 @@
 #submit-button {
   margin-top: 1rem;
 }
+
+select {
+  background-color: #daede3;
+  border: none;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 1.5rem;
+  padding-left: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+option:hover {
+  background-color: #ebf5f0;
+}
+
+.custom-pkmn-input {
+  background-color: #daede3;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.iv-input {
+  background-color: #daede3;
+  border: 2px solid #d0e1d8;
+  border-radius: 10px;
+  height: 1rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+
+.iv-input:focus {
+  outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
+.stat-div:hover {
+  cursor: pointer;
+}
+
+.ability-div:hover {
+  cursor: pointer;
+}
+
+.details-div:hover {
+  cursor: pointer;
+}
+
+.card-h2-details:hover {
+  cursor: pointer;
+}
