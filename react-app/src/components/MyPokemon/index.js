@@ -9,6 +9,7 @@ import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import { Link } from 'react-router-dom';
+import DeletePokemonModal from '../DeletePokemonModal';
 
 function MyPokemon() {
   const pokemon = useSelector((state) => state.pokemon);
@@ -59,7 +60,11 @@ function MyPokemon() {
                   <button className="gen-button">Edit</button>
                 </Link>
                 <button className="gen-button">
-                  <OpenModalButton className="gen-btn" buttonText={'Delete'} />
+                  <OpenModalButton
+                    className="gen-btn"
+                    buttonText={'Release'}
+                    modalComponent={<DeletePokemonModal id={pkmn.id} />}
+                  />
                 </button>
               </div>
             </div>
