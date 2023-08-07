@@ -16,6 +16,7 @@ function CreatePokemon() {
   const [pkmnId, setPkmnId] = useState('');
   const [nickNameError, setNickNameError] = useState(false);
   const [requiredError, setRequiredError] = useState(false);
+  const [ivError, setIvError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const searchRef = useRef(null);
   const dispatch = useDispatch();
@@ -47,6 +48,28 @@ function CreatePokemon() {
     } else {
       setRequiredError(false);
       setDisabled(false);
+    }
+
+    if (
+      ivHp > 31 ||
+      ivAtk > 31 ||
+      ivDef > 31 ||
+      ivSpAtk > 31 ||
+      ivSpDef > 31 ||
+      ivSpeed > 31
+    ) {
+      setDisabled(true);
+      setIvError(true);
+    } else if (
+      ivHp <= 31 &&
+      ivAtk <= 31 &&
+      ivDef <= 31 &&
+      ivSpAtk <= 31 &&
+      ivSpDef <= 31 &&
+      ivSpeed <= 31
+    ) {
+      setDisabled(false);
+      setIvError(false);
     }
   });
 
@@ -922,7 +945,7 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivHp}
                                 onChange={(e) =>
-                                  setIvHp(parseInt(e.target.value), 10)
+                                  setIvHp(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
@@ -935,7 +958,7 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivAtk}
                                 onChange={(e) =>
-                                  setIvAtk(parseInt(e.target.value), 10)
+                                  setIvAtk(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
@@ -948,7 +971,7 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivDef}
                                 onChange={(e) =>
-                                  setIvDef(parseInt(e.target.value), 10)
+                                  setIvDef(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
@@ -961,7 +984,7 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivSpAtk}
                                 onChange={(e) =>
-                                  setIvSpAtk(parseInt(e.target.value), 10)
+                                  setIvSpAtk(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
@@ -974,7 +997,7 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivSpDef}
                                 onChange={(e) =>
-                                  setIvSpDef(parseInt(e.target.value), 10)
+                                  setIvSpDef(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
@@ -987,13 +1010,14 @@ function CreatePokemon() {
                                 max="31"
                                 value={ivSpeed}
                                 onChange={(e) =>
-                                  setIvSpeed(parseInt(e.target.value), 10)
+                                  setIvSpeed(parseInt(e.target.value, 10))
                                 }
                               ></input>
                             </div>
                           </div>
                         </div>
                       </div>
+
                       <button
                         className="customize-pokemon-button"
                         onClick={(e) => openStats(e)}
@@ -1001,6 +1025,11 @@ function CreatePokemon() {
                         X
                       </button>
                     </div>
+                  )}
+                  {ivError && (
+                    <p className="error-msg">
+                      Iv Values must not go below 0 and above 31.
+                    </p>
                   )}
                   <button
                     id="submit-button"
