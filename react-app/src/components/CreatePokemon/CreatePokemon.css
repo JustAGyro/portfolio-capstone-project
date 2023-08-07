@@ -395,3 +395,20 @@ input[type='number'] {
 .card-h2-details:hover {
   cursor: pointer;
 }
+
+.header-instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+.instructions {
+  width: 40rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}

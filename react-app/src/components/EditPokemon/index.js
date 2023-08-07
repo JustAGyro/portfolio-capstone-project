@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './CreatePokemon.css';
-import './Rangeslider.css';
+import './EditPokemon.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { newPokemon } from '../../store/pokemon';
 import { useHistory } from 'react-router-dom';
 
-function CreatePokemon() {
+function EditPokemon() {
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
@@ -353,19 +352,8 @@ function CreatePokemon() {
   return (
     <>
       <div className="create-pokemon-container">
-        <div className="header-instructions">
-          <h1>Create A Pokemon</h1>
-          <div className="instructions">
-            <p>
-              Search for a pokemon using the search bar. Once you've found the
-              Pokemon you want to customize. Fill out the information in the
-              form by clicking on the attributes on the card below. For example
-              if you would like to customize the ability, just click on the
-              ability! Once you're satisfied, click save and enjoy your new
-              addition to your team! =D
-            </p>
-          </div>
-        </div>
+        <h1>Hi this is the beginning of the create form woo</h1>
+        <h2>this is just so my thing doesnt bork</h2>
         <div className="search-container">
           <label>
             Search for a Pokemon
@@ -1020,4 +1008,4 @@ function CreatePokemon() {
   );
 }
 
-export default CreatePokemon;
+export default EditPokemon;

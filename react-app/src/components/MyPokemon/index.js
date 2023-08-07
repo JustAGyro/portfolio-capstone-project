@@ -8,6 +8,7 @@ import { getAllPokemon } from '../../store/pokemon';
 import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
+import { Link } from 'react-router-dom';
 
 function MyPokemon() {
   const pokemon = useSelector((state) => state.pokemon);
@@ -53,9 +54,9 @@ function MyPokemon() {
                 </div>
               </div>
               <div className="team-card-buttons">
-                <button className="gen-button">
-                  <OpenModalButton className="gen-btn" buttonText={'Edit'} />
-                </button>
+                <Link to="/pokemon/edit">
+                  <button className="gen-button">Edit</button>
+                </Link>
                 <button className="gen-button">
                   <OpenModalButton className="gen-btn" buttonText={'Delete'} />
                 </button>
