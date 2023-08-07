@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './CreatePokemon.css';
 import './Rangeslider.css';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { newPokemon } from '../../store/pokemon';
 import { useHistory } from 'react-router-dom';

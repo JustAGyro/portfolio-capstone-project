@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './EditPokemon.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { editPokemons } from '../../store/pokemon';
@@ -7,17 +7,11 @@ import { useHistory, useParams } from 'react-router-dom';
 function EditPokemon() {
   const { pokemonId } = useParams();
   const pokemon = useSelector((state) => state.pokemon[pokemonId]);
-  const [results, setResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [showResults, setShowResults] = useState(false);
   const [pokemonData, setPokemonData] = useState({});
   const [heldItems, setHeldItems] = useState([]);
-  const [pkmnId, setPkmnId] = useState('');
   const [nickNameError, setNickNameError] = useState(false);
   const [requiredError, setRequiredError] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const searchRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
