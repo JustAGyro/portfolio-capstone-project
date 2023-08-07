@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './EditPokemon.css';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { newPokemon } from '../../store/pokemon';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { editPokemons } from '../../store/pokemon';
+import { useHistory, useParams } from 'react-router-dom';
 
 function EditPokemon() {
+  const { pokemonId } = useParams();
+  const pokemon = useSelector((state) => state.pokemon[pokemonId]);
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
@@ -100,11 +101,11 @@ function EditPokemon() {
   const [movesVisible, setMovesVisible] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
 
-  //Grab pokemon for search
-  const fetchPokemon = () => {
-    fetch(`/api/pokemon/search`)
+  //Grab pokemon to customize and save to db
+  const fetchSelectedPokemon = (pokeDex) => {
+    fetch(`/api/pokemon/${pokeDex}/search`)
       .then((response) => response.json())
-      .then((data) => setResults(data.results));
+      .then((data) => setPokemonData(data));
   };
 
   //Grab items
@@ -122,68 +123,58 @@ function EditPokemon() {
   };
 
   useEffect(() => {
-    fetchPokemon();
+    fetchSelectedPokemon(pokeDex);
     fetchItems();
     fetchNatures();
-  }, []);
-
-  //Grab pokemon to customize and save to db
-  const fetchSelectedPokemon = (pkmnId) => {
-    fetch(`/api/pokemon/${pkmnId}/search`)
-      .then((response) => response.json())
-      .then((data) => setPokemonData(data));
-  };
-
-  //Grab Pokemon & load all the states to properly show data
-  useEffect(() => {
-    fetchSelectedPokemon(pkmnId);
-    setNickName('');
-    setGender('');
-    setShiny('No');
-    setTeraType('');
-    setAbility('');
-    setItem('');
-    setMoveOne('');
-    setMoveTwo('');
-    setMoveThree('');
-    setMoveFour('');
-    setEvHp(0);
-    setEvAtk(0);
-    setEvDef(0);
-    setEvSpAtk(0);
-    setEvSpDef(0);
-    setEvSpeed(0);
-    setIvHp(0);
-    setIvAtk(0);
-    setIvDef(0);
-    setIvSpAtk(0);
-    setIvSpDef(0);
-    setIvSpeed(0);
-    setNature('');
-  }, [selectedItem]);
+  }, [pokeDex]);
 
   useEffect(() => {
-    if (pokemonData && pokemonData !== 'Error') {
-      if (pokemonData.id) {
-        setPokeDex(pokemonData.id);
+    if (pokemon) {
+      if (pokemon.name) {
+        setName(pokemon.name);
       }
-      if (pokemonData.types) {
-        setTypeOne(pokemonData.types[0].type.name);
+
+      if (pokemon.nick_name) {
+        setNickName(pokemon.nick_name);
       }
-      if (pokemonData.types) {
-        setTypeTwo(pokemonData.types[1]?.type.name);
+
+      if (pokemon.poke_dex) {
+        setPokeDex(pokemon.poke_dex);
+      }
+      if (pokemon.type_one) {
+        setTypeOne(pokemon.type_one);
+      }
+      if (pokemon.type_two) {
+        setTypeTwo(pokemon.type_two);
+      }
+
+      if (pokemon.ability) {
+        setAbility(pokemon.ability);
       }
 
       if (pokemonData.abilities) {
         setAbilitySelections(pokemonData.abilities);
       }
 
-      if (pokemonData.moves) {
-        setMoveSelections(pokemonData.moves);
+      if (pokemon.item) {
+        setItem(pokemon.item);
       }
 
-      if (pokemonData.name) {
-        setName(pokemonData.name);
+      if (pokemon.move_one) {
+        setMoveOne(pokemon.move_one);
+      }
+      if (pokemon.move_two) {
+        setMoveTwo(pokemon.move_two);
+      }
+      if (pokemon.move_three) {
+        setMoveThree(pokemon.move_three);
+      }
+      if (pokemon.move_four) {
+        setMoveFour(pokemon.move_four);
+      }
+
+      if (pokemonData.moves) {
+        setMoveSelections(pokemonData.moves);
       }
 
       if (pokemonData.stats) {
@@ -194,40 +185,52 @@ function EditPokemon() {
         setBaseSpDef(pokemonData?.stats[4]?.base_stat);
         setBaseSpeed(pokemonData?.stats[5]?.base_stat);
       }
+
+      if (
+        pokemon.ev_hp &&
+        pokemon.ev_atk &&
+        pokemon.ev_def &&
+        pokemon.ev_sp_atk &&
+        pokemon.ev_sp_def &&
+        pokemon.ev_speed
+      ) {
+        setEvHp(pokemon.ev_hp);
+        setEvAtk(pokemon.ev_atk);
+        setEvDef(pokemon.ev_def);
+        setEvSpAtk(pokemon.ev_sp_atk);
+        setEvSpDef(pokemon.ev_sp_def);
+        setEvSpeed(pokemon.ev_speed);
+      }
+
+      if (
+        pokemon.iv_hp &&
+        pokemon.iv_atk &&
+        pokemon.iv_def &&
+        pokemon.iv_sp_atk &&
+        pokemon.iv_sp_def &&
+        pokemon.iv_speed
+      ) {
+        setIvHp(pokemon.iv_hp);
+        setIvAtk(pokemon.iv_atk);
+        setIvDef(pokemon.iv_def);
+        setIvSpAtk(pokemon.iv_sp_atk);
+        setIvSpDef(pokemon.iv_sp_def);
+        setIvSpeed(pokemon.iv_speed);
+      }
+
+      if (pokemon.nature) {
+        setNature(pokemon.nature);
+      }
+
+      if (pokemon.gender) {
+        setGender(pokemon.gender);
+      }
+
+      if (pokemon.tera_type) {
+        setTeraType(pokemon.tera_type);
+      }
     }
   }, [pokemonData]);
-
-  //To get the dropdown to only show when in use
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-    setShowResults(true);
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        // Clicked outside of the container, hide the results
-        setShowResults(false);
-        setSearchQuery('');
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
-
-  //For results
-  const resultClick = (item) => {
-    setSelectedItem(item);
-    setPkmnId(item.name);
-  };
-
-  const filteredResults = results.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   //Open input boxes
   const openNickName = (e) => {
@@ -298,7 +301,7 @@ function EditPokemon() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
 
     if (shiny === 'No' || shiny === 'no') {
@@ -342,56 +345,27 @@ function EditPokemon() {
       ivSpDef: ivSpDef,
       ivSpeed: ivSpeed,
     };
-
-    dispatch(newPokemon(payload));
+    console.log('do we even trigger this...?');
+    dispatch(editPokemons(payload, pokemonId));
+    console.log('do we even trigger this...?');
     history.push('/pokemon');
   };
-
-  console.log(natureSelections);
 
   return (
     <>
       <div className="create-pokemon-container">
-        <h1>Hi this is the beginning of the create form woo</h1>
-        <h2>this is just so my thing doesnt bork</h2>
-        <div className="search-container">
-          <label>
-            Search for a Pokemon
-            <div className="search-bar" ref={searchRef}>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search Pokémon"
-              />
-            </div>
-          </label>
-          {filteredResults && showResults && (
-            <div className="results-dropdown-menu">
-              <ul className="results-list">
-                {filteredResults.map((result) => (
-                  <li
-                    className="result-item"
-                    key={result.name}
-                    onClick={() => resultClick(result)}
-                  >
-                    {result.name.charAt(0).toUpperCase() + result.name.slice(1)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <div></div>
+        <div className="edit-header">
+          <h1>Edit Your Pokemon</h1>
         </div>
         <div>
-          {selectedItem && pokemonData && (
+          {pokemon && (
             <div className="customize-container">
               <div className="custom-pokemon-card">
                 <div className="pkmn-details">
                   <h2 onClick={openNickName} className="card-h2-details">
                     {' '}
-                    {selectedItem.name.charAt(0).toUpperCase() +
-                      selectedItem.name.slice(1)}
+                    {pokemon.name.charAt(0).toUpperCase() +
+                      pokemon.name.slice(1)}
                     , "{nickName}"
                   </h2>
                   <div className="details-div" onClick={openNickName}>
@@ -536,7 +510,7 @@ function EditPokemon() {
               </div>
               <div className="custom-pokemon-form-container">
                 <h2>Customization Fields</h2>
-                <form onSubmit={handleSubmit}>
+                <form>
                   {nickNameVisible && (
                     <div className="nickName-input">
                       <div className="general-info">
@@ -990,15 +964,14 @@ function EditPokemon() {
                       </button>
                     </div>
                   )}
-                  <button
-                    id="submit-button"
-                    className="gen-button"
-                    type="submit"
-                    disabled={disabled}
-                  >
-                    Submit Pokemon
-                  </button>
                 </form>
+                <button
+                  className="gen-button"
+                  onClick={handleEdit}
+                  disabled={disabled}
+                >
+                  Save Changes
+                </button>
               </div>
             </div>
           )}

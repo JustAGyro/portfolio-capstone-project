@@ -68,10 +68,29 @@ export const newPokemon = (pokemon) => async (dispatch) => {
     },
     body: JSON.stringify(pokemon),
   });
-  console.log('Do we get here 1!');
   if (response.ok) {
     const data = await response.json();
-    console.log('Do we get here 2!');
+    dispatch(loadPokemon(data));
+    return data;
+  }
+};
+
+export const editPokemons = (pokemon, id) => async (dispatch) => {
+  console.log('Do we get here? 1');
+  console.log('pokemon', id);
+  console.log('why is the line above skipped');
+  const response = await fetch(`/api/pokemon/${id}/edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(pokemon),
+  });
+
+  if (response.ok) {
+    console.log('Do we get here? 2');
+    const data = await response.json();
+
     dispatch(loadPokemon(data));
     return data;
   }

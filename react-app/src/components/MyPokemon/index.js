@@ -38,7 +38,8 @@ function MyPokemon() {
           return (
             <div key={pkmn.id} className="pokemon-card">
               <h2 className="card-h2">
-                {pkmn.name}, "{pkmn.nick_name}"
+                {pkmn.name.charAt(0).toUpperCase() + pkmn.name.slice(1)}, "
+                {pkmn.nick_name}"
               </h2>
               <div className="pokemon-card-area">
                 <div className="pokemon-card-info">
@@ -54,7 +55,7 @@ function MyPokemon() {
                 </div>
               </div>
               <div className="team-card-buttons">
-                <Link to="/pokemon/edit">
+                <Link to={`/pokemon/${pkmn.id}/edit`}>
                   <button className="gen-button">Edit</button>
                 </Link>
                 <button className="gen-button">
