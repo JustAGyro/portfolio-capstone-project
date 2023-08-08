@@ -4,6 +4,7 @@
 
 .cards-summary-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .team-cards {
@@ -17,7 +18,7 @@
 .team-cards-summary-open {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 1rem;
+  column-gap: 2rem;
   row-gap: 2rem;
   margin-top: 1rem;
   padding: 2rem;
@@ -32,6 +33,7 @@
   border-radius: 10px;
   background-color: #fbfbfb;
   z-index: 0;
+  height: 13rem;
 }
 
 .team-card-items {
@@ -94,6 +96,7 @@
   padding-right: 1rem;
   margin-top: 0;
   position: relative;
+  margin-right: 2rem;
 }
 
 .summary-display {
