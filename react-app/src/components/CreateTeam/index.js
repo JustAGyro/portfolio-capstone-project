@@ -24,6 +24,11 @@ export function CreateTeam() {
   const [showPokemonInput, setShowPokemonInput] = useState(false);
   const [showSummaryInput, setShowSummaryInput] = useState(false);
 
+  //States for Errors
+  const [summaryError, setSummaryError] = useState(false);
+  const [requiredError, setRequiredError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+
   const openPokemonInput = () => {
     if (showPokemonInput) {
       setShowPokemonInput(false);

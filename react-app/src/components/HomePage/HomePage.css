@@ -97,11 +97,13 @@
   margin-top: 0;
   position: relative;
   margin-right: 2rem;
+  min-height: 52rem;
 }
 
 .summary-display {
   margin-top: 0;
   white-space: pre-line;
+  overflow-y: auto;
 }
 
 .summary-button {
