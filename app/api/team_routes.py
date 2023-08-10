@@ -70,4 +70,4 @@ def delete_team(id):
     if current_user.id == team.user_id:
         db.session.delete(team)
         db.session.commit()
-        return {'res': 'Team Successfully Deleted'}
+        return jsonify(id), 200

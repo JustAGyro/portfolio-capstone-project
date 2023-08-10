@@ -135,7 +135,7 @@ export default function teamReducer(state = {}, action) {
       return newState;
     case DELETE_TEAM:
       newState = { ...state };
-      delete newState[action.payload.id];
+      delete newState[action.payload];
       return newState;
     case CLEAR_TEAMS:
       newState = {};

@@ -4,11 +4,13 @@ import './CreateTeam.css';
 import { useState, useEffect } from 'react';
 import { newTeam } from '../../store/teams';
 import { newParty } from '../../store/parties';
+import { useHistory } from 'react-router-dom';
 
 export function CreateTeam() {
   const pokemon = useSelector((state) => state.pokemon);
   const userId = useSelector((state) => state.session.user.id);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //States for team form
   const [teamName, setTeamName] = useState('');
@@ -156,7 +158,10 @@ export function CreateTeam() {
       validTeamPokemonPayloads.forEach((payload) => {
         dispatch(newParty(payload));
       });
+
+      history.push('/teams');
     }
+    history.push('/teams');
   };
 
   return (

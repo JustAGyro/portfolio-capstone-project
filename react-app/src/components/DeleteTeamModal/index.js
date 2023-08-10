@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './DeleteTeamModal.css';
 import { deleteTeams } from '../../store/teams';
+import { useHistory } from 'react-router-dom';
 
 function DeleteTeamModal({ id, teamName, teamSummary }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -16,6 +18,7 @@ function DeleteTeamModal({ id, teamName, teamSummary }) {
       teamSummary: teamSummary,
     };
     dispatch(deleteTeams(payload));
+    history.push('/teams');
     closeModal();
   };
 

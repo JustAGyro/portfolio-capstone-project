@@ -14,9 +14,9 @@ class Team(db.Model):
     team_summary = db.Column(db.String)
 
     user = relationship("User", back_populates="teams")
-    comments = relationship("Comment",back_populates="team" )
-    party = relationship("Party", back_populates="team")
-    likes = relationship("Like", back_populates="team")
+    comments = relationship("Comment",back_populates="team", cascade="all, delete-orphan")
+    party = relationship("Party", back_populates="team", cascade="all, delete-orphan")
+    likes = relationship("Like", back_populates="team", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
