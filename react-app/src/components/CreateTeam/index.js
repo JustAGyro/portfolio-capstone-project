@@ -114,15 +114,16 @@ export function CreateTeam() {
 
   console.log('teamPokemon 1: ', teamPokemon1.name);
 
-  const submitTeamForm = () => {
+  const submitTeamForm = async () => {
     const teamPayload = {
       teamName: teamName,
       teamSummary: teamSummary,
     };
 
-    const createdTeam = dispatch(newTeam(teamPayload));
+    const createdTeam = await dispatch(newTeam(teamPayload));
 
-    if (newTeam) {
+    if (createdTeam) {
+      console.log(createdTeam);
       const teamPokemons = [
         teamPokemon1,
         teamPokemon2,
@@ -140,7 +141,7 @@ export function CreateTeam() {
         if (matchingPokemon) {
           return {
             pokemonId: matchingPokemon.id,
-            teamId: newTeam.id,
+            teamId: createdTeam.id,
           };
         }
 
