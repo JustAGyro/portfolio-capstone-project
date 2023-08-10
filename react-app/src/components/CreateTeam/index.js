@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './CreateTeam.css';
 import { useState, useEffect } from 'react';
+import { newTeam } from '../../store/teams';
+import { newParty } from '../../store/parties';
 
 export function CreateTeam() {
   const pokemon = useSelector((state) => state.pokemon);
@@ -9,16 +11,14 @@ export function CreateTeam() {
   const dispatch = useDispatch();
 
   //States for team form
-  const [teamName, setTeamName] = useState('Click to enter name');
-  const [teamSummary, setTeamSummary] = useState(
-    'Click here to write your summary'
-  );
-  const [teamPokemon1, setTeamPokemon1] = useState({ name: 'Click to choose' });
-  const [teamPokemon2, setTeamPokemon2] = useState({ name: 'Click to choose' });
-  const [teamPokemon3, setTeamPokemon3] = useState({ name: 'Click to choose' });
-  const [teamPokemon4, setTeamPokemon4] = useState({ name: 'Click to choose' });
-  const [teamPokemon5, setTeamPokemon5] = useState({ name: 'Click to choose' });
-  const [teamPokemon6, setTeamPokemon6] = useState({ name: 'Click to choose' });
+  const [teamName, setTeamName] = useState('');
+  const [teamSummary, setTeamSummary] = useState('');
+  const [teamPokemon1, setTeamPokemon1] = useState('First');
+  const [teamPokemon2, setTeamPokemon2] = useState('Second');
+  const [teamPokemon3, setTeamPokemon3] = useState('Third');
+  const [teamPokemon4, setTeamPokemon4] = useState('Fourth');
+  const [teamPokemon5, setTeamPokemon5] = useState('Fifth');
+  const [teamPokemon6, setTeamPokemon6] = useState('Sixth');
 
   //States for inputs to open
   const [showPokemonInput, setShowPokemonInput] = useState(false);
@@ -28,6 +28,69 @@ export function CreateTeam() {
   const [summaryError, setSummaryError] = useState(false);
   const [requiredError, setRequiredError] = useState(false);
   const [nameError, setNameError] = useState(false);
+  const [duplicateError, setDuplicateError] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (summaryError || requiredError || nameError || duplicateError) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [summaryError, requiredError, nameError, duplicateError]);
+
+  const checkForDuplicates = () => {
+    const teamPokemons = [
+      teamPokemon1,
+      teamPokemon2,
+      teamPokemon3,
+      teamPokemon4,
+      teamPokemon5,
+      teamPokemon6,
+    ];
+    const uniquePokemons = new Set(teamPokemons);
+
+    if (uniquePokemons.size < teamPokemons.length) {
+      setDuplicateError(true);
+    } else {
+      setDuplicateError(false);
+    }
+  };
+
+  useEffect(() => {
+    if (teamName.length > 25) {
+      setNameError(true);
+    } else if (teamName.length <= 25) {
+      setNameError(false);
+    }
+  }, [teamName]);
+
+  useEffect(() => {
+    if (teamSummary.length > 1000) {
+      setSummaryError(true);
+    } else if (teamSummary.length <= 1000) {
+      setSummaryError(false);
+    }
+  }, [teamSummary]);
+
+  useEffect(() => {
+    checkForDuplicates();
+  }, [
+    teamPokemon1,
+    teamPokemon2,
+    teamPokemon3,
+    teamPokemon4,
+    teamPokemon5,
+    teamPokemon6,
+  ]);
+
+  useEffect(() => {
+    if (teamName.length < 1 || teamSummary.length < 1) {
+      setRequiredError(true);
+    } else if (teamName.length > 1 && teamSummary.length > 1) {
+      setRequiredError(false);
+    }
+  });
 
   const openPokemonInput = () => {
     if (showPokemonInput) {
@@ -49,7 +112,51 @@ export function CreateTeam() {
     (pkmn) => pkmn.user_id === userId
   );
 
-  console.log(userPokemon);
+  console.log('teamPokemon 1: ', teamPokemon1.name);
+
+  const submitTeamForm = () => {
+    const teamPayload = {
+      teamName: teamName,
+      teamSummary: teamSummary,
+    };
+
+    const createdTeam = dispatch(newTeam(teamPayload));
+
+    if (newTeam) {
+      const teamPokemons = [
+        teamPokemon1,
+        teamPokemon2,
+        teamPokemon3,
+        teamPokemon4,
+        teamPokemon5,
+        teamPokemon6,
+      ];
+
+      const teamPokemonPayloads = teamPokemons.map((teamPokemonName) => {
+        const matchingPokemon = userPokemon.find(
+          (pokemon) => pokemon.name === teamPokemonName
+        );
+
+        if (matchingPokemon) {
+          return {
+            pokemonId: matchingPokemon.id,
+            teamId: newTeam.id,
+          };
+        }
+
+        return null;
+      });
+
+      // Filter out any null values (no matching Pokemon)
+      const validTeamPokemonPayloads = teamPokemonPayloads.filter(
+        (payload) => payload !== null
+      );
+
+      validTeamPokemonPayloads.forEach((payload) => {
+        dispatch(newParty(payload));
+      });
+    }
+  };
 
   return (
     <>
@@ -77,42 +184,205 @@ export function CreateTeam() {
                 <div className="team-pokemon-div">
                   <p>First Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon1.name}
+                    {teamPokemon1.charAt(0).toUpperCase() +
+                      teamPokemon1.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Second Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon2.name}
+                    {teamPokemon2.charAt(0).toUpperCase() +
+                      teamPokemon2.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Third Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon3.name}
+                    {teamPokemon3.charAt(0).toUpperCase() +
+                      teamPokemon3.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Fourth Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon4.name}
+                    {teamPokemon4.charAt(0).toUpperCase() +
+                      teamPokemon4.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Fifth Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon5.name}
+                    {teamPokemon5.charAt(0).toUpperCase() +
+                      teamPokemon5.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Sixth Pokemon</p>
                   <div className="team-pokemon" onClick={openPokemonInput}>
-                    {teamPokemon6.name}
+                    {teamPokemon6.charAt(0).toUpperCase() +
+                      teamPokemon6.slice(1)}
                   </div>
                 </div>
+                <div>
+                  <button
+                    disabled={disabled}
+                    className="gen-button"
+                    onClick={submitTeamForm}
+                  >
+                    Submit Your Team
+                  </button>
+                </div>
+                {requiredError && (
+                  <p className="error-msg">
+                    Please enter a team name and team summary before creating
+                    your team!
+                  </p>
+                )}
+                {duplicateError && (
+                  <p className="error-msg">
+                    You can't add the same Pokemon to a team more than once!
+                  </p>
+                )}
               </div>
             </div>
-            {showPokemonInput && <div className="summary-input-div"> hi</div>}
+            {showPokemonInput && (
+              <div className="summary-input-div">
+                {' '}
+                {userPokemon && (
+                  <form>
+                    <div className="teamname-input-div">
+                      <p>Team Name</p>
+                      <input
+                        className="custom-pkmn-input"
+                        value={teamName}
+                        onChange={(e) => setTeamName(e.target.value)}
+                      ></input>
+                    </div>
+                    {nameError && (
+                      <p className="error-msg">
+                        Team name must be less 25 characters or less!
+                      </p>
+                    )}
+                    <div className="select-pokemon-form">
+                      <div className="select-pokemon-div">
+                        <p>First Pokemon</p>
+                        <select
+                          value={teamPokemon1}
+                          onChange={(e) => setTeamPokemon1(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="select-pokemon-div">
+                        <p>Second Pokemon</p>
+                        <select
+                          value={teamPokemon2}
+                          onChange={(e) => setTeamPokemon2(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="select-pokemon-div">
+                        <p>Third Pokemon</p>
+                        <select
+                          value={teamPokemon3}
+                          onChange={(e) => setTeamPokemon3(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="select-pokemon-div">
+                        <p>Fourth Pokemon</p>
+                        <select
+                          value={teamPokemon4}
+                          onChange={(e) => setTeamPokemon4(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="select-pokemon-div">
+                        <p>Fifth Pokemon</p>
+                        <select
+                          value={teamPokemon5}
+                          onChange={(e) => setTeamPokemon5(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="select-pokemon-div">
+                        <p>Sixth Pokemon</p>
+                        <select
+                          value={teamPokemon6}
+                          onChange={(e) => setTeamPokemon6(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {userPokemon.map((pokemon) => (
+                            <option value={pokemon.name}>
+                              {pokemon.name.charAt(0).toUpperCase() +
+                                pokemon.name.slice(1)}{' '}
+                              , "
+                              {pokemon.nick_name.charAt(0).toUpperCase() +
+                                pokemon.nick_name.slice(1)}
+                              "
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
           </div>
           <div className="summary-side-div">
             <div className="team-pokemon-summary">
@@ -123,6 +393,11 @@ export function CreateTeam() {
               >
                 {teamSummary}
               </div>
+              {summaryError && (
+                <p className="error-msg">
+                  Summary must be less than 1000 characters long.
+                </p>
+              )}
             </div>
             {showSummaryInput && (
               <div className="summary-input-div">

@@ -100,6 +100,32 @@
   flex-direction: column;
 }
 
-/* .summary-side-div {
+.select-pokemon-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+}
 
-} */
+.select-pokemon-div {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  align-items: center;
+}
+
+.select-pokemon-div select {
+  width: 100%;
+  height: 2.5rem;
+}
+
+.select-pokemon-div p {
+  margin-bottom: 0;
+}
+
+.teamname-input-div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}

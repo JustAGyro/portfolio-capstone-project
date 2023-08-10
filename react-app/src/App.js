@@ -11,6 +11,11 @@ import MyPokemon from './components/MyPokemon';
 import CreatePokemon from './components/CreatePokemon';
 import EditPokemon from './components/EditPokemon';
 import CreateTeam from './components/CreateTeam';
+import { getAllComments } from './store/comments';
+import { getAllParties } from './store/parties';
+import { getAllLikes } from './store/likes';
+import { getAllPokemon } from './store/pokemon';
+import { getAllTeams } from './store/teams';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +25,11 @@ function App() {
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
+    dispatch(getAllComments());
+    dispatch(getAllLikes());
+    dispatch(getAllParties());
+    dispatch(getAllPokemon());
+    dispatch(getAllTeams());
   }, [dispatch]);
 
   return (

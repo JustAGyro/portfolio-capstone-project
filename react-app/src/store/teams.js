@@ -72,7 +72,7 @@ export const newTeam = (team) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    dispatch(loadTeam(team));
+    dispatch(loadTeam(data));
     return data;
   }
 };
