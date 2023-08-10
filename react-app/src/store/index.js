@@ -1,11 +1,20 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import session from './session'
+import session from './session';
+import comments from './comments';
+import likes from './likes';
+import parties from './parties';
+import pokemon from './pokemon';
+import teams from './teams';
 
 const rootReducer = combineReducers({
   session,
+  comments,
+  likes,
+  parties,
+  pokemon,
+  teams,
 });
-
 
 let enhancer;
 

@@ -45,7 +45,7 @@ class Pokemon(db.Model):
     iv_speed = db.Column(db.Integer, nullable=False, default=1)
 
     user = relationship("User", back_populates="pokemons")
-    teammember = relationship("TeamMember", back_populates="pokemon")
+    party = relationship("Party", back_populates="pokemon", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

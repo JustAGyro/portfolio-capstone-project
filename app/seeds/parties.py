@@ -1,78 +1,78 @@
-from app.models import db, TeamMember, environment, SCHEMA
+from app.models import db, Party, environment, SCHEMA
 from sqlalchemy.sql import text
 
-def seed_team_members():
-    member_1 = TeamMember(
+def seed_party():
+    member_1 = Party(
         team_id=1, pokemon_id=1)
-    member_2 = TeamMember(
+    member_2 = Party(
         team_id=1, pokemon_id=2)
-    member_3 = TeamMember(
+    member_3 = Party(
         team_id=1, pokemon_id=3)
-    member_4 = TeamMember(
+    member_4 = Party(
         team_id=1, pokemon_id=4)
-    member_5 = TeamMember(
+    member_5 = Party(
         team_id=1, pokemon_id=5)
-    member_6 = TeamMember(
+    member_6 = Party(
         team_id=1, pokemon_id=6)
-    member_7 = TeamMember(
+    member_7 = Party(
         team_id=2, pokemon_id=7)
-    member_8 = TeamMember(
+    member_8 = Party(
         team_id=2, pokemon_id=8)
-    member_9 = TeamMember(
+    member_9 = Party(
         team_id=2, pokemon_id=9)
-    member_10 = TeamMember(
+    member_10 = Party(
         team_id=2, pokemon_id=10)
-    member_11 = TeamMember(
+    member_11 = Party(
         team_id=2, pokemon_id=11)
-    member_12 = TeamMember(
+    member_12 = Party(
         team_id=2, pokemon_id=12)
-    member_13 = TeamMember(
+    member_13 = Party(
         team_id=3, pokemon_id=13)
-    member_14 = TeamMember(
+    member_14 = Party(
         team_id=3, pokemon_id=14)
-    member_15 = TeamMember(
+    member_15 = Party(
         team_id=3, pokemon_id=15)
-    member_16 = TeamMember(
+    member_16 = Party(
         team_id=3, pokemon_id=16)
-    member_17 = TeamMember(
+    member_17 = Party(
         team_id=3, pokemon_id=17)
-    member_18 = TeamMember(
+    member_18 = Party(
         team_id=3, pokemon_id=18)
-    member_19 = TeamMember(
+    member_19 = Party(
         team_id=4, pokemon_id=19)
-    member_20 = TeamMember(
+    member_20 = Party(
         team_id=4, pokemon_id=20)
-    member_21 = TeamMember(
+    member_21 = Party(
         team_id=4, pokemon_id=21)
-    member_22 = TeamMember(
+    member_22 = Party(
         team_id=4, pokemon_id=22)
-    member_23 = TeamMember(
+    member_23 = Party(
         team_id=4, pokemon_id=23)
-    member_24 = TeamMember(
+    member_24 = Party(
         team_id=4, pokemon_id=24)
-    member_25 = TeamMember(
+    member_25 = Party(
         team_id=5, pokemon_id=25)
-    member_26 = TeamMember(
+    member_26 = Party(
         team_id=5, pokemon_id=26)
-    member_27 = TeamMember(
+    member_27 = Party(
         team_id=5, pokemon_id=27)
-    member_28 = TeamMember(
+    member_28 = Party(
         team_id=5, pokemon_id=28)
-    member_29 = TeamMember(
+    member_29 = Party(
         team_id=5, pokemon_id=29)
-    member_30 = TeamMember(
+    member_30 = Party(
         team_id=5, pokemon_id=30)
-    member_31 = TeamMember(
+    member_31 = Party(
         team_id=6, pokemon_id=31)
-    member_32 = TeamMember(
+    member_32 = Party(
         team_id=6, pokemon_id=32)
-    member_33 = TeamMember(
+    member_33 = Party(
         team_id=6, pokemon_id=33)
-    member_34 = TeamMember(
+    member_34 = Party(
         team_id=6, pokemon_id=34)
-    member_35 = TeamMember(
+    member_35 = Party(
         team_id=6, pokemon_id=35)
-    member_36 = TeamMember(
+    member_36 = Party(
         team_id=6, pokemon_id=36)
 
     db.session.add(member_1)
@@ -117,10 +117,10 @@ def seed_team_members():
 
     db.session.commit()
 
-def undo_team_members():
+def undo_party():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.teammembers RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.parties RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM teammembers"))
+        db.session.execute(text("DELETE FROM parties"))
 
     db.session.commit()

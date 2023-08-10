@@ -4,7 +4,7 @@ from .comments import seed_comments, undo_comments
 from .likes import seed_likes, undo_likes
 from .pokemons import seed_pokemons, undo_pokemons
 from .teams import seed_teams, undo_teams
-from .teammembers import seed_team_members, undo_team_members
+from .parties import seed_party, undo_party
 
 
 from app.models.db import db, environment, SCHEMA
@@ -27,13 +27,13 @@ def seed():
         undo_pokemons()
         undo_comments()
         undo_likes()
-        undo_team_members()
+        undo_party
     seed_users()
     seed_pokemons()
     seed_teams()
     seed_comments()
     seed_likes()
-    seed_team_members()
+    seed_party()
 
     # Add other seed functions here
 
@@ -46,5 +46,5 @@ def undo():
     undo_pokemons()
     undo_comments()
     undo_likes()
-    undo_team_members()
+    undo_party()
     # Add other undo functions here

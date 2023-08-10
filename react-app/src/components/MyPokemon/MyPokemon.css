@@ -1,0 +1,33 @@
+.pokemon-card-area {
+  display: flex;
+  justify-content: space-between;
+  height: 70%;
+  width: 100%;
+}
+.pokemon-card-info {
+  min-width: 50%;
+  height: 100%;
+}
+
+.pokemon-img {
+  height: 60%;
+}
+
+.pokemon-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 2rem;
+}
+
+.pokemon-card {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  max-width: 20rem;
+  max-height: 20rem;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  margin-bottom: 2rem;
+  background-color: #fbfbfb;
+  border-radius: 10px;
+}

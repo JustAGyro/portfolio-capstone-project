@@ -1,0 +1,414 @@
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar input {
+  background-color: #ebf5f0;
+  border: 2px solid #d0e1d8;
+  height: 1.5rem;
+  width: 20rem;
+}
+
+.search-bar input:focus {
+  background-color: #dbe6e0;
+  outline: none;
+}
+
+.results-list {
+  height: 10rem;
+  overflow-y: auto;
+  width: 20.5rem;
+  margin-top: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #d0e1d8;
+}
+
+.result-item {
+  margin-top: 0.2rem;
+}
+
+.result-item:hover {
+  background-color: #ebf5f0;
+  cursor: pointer;
+}
+
+.customize-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.custom-pokemon-card {
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  height: 23rem;
+  width: 50rem;
+  padding: 1rem;
+}
+
+.pkmn-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-h2-details {
+  border-bottom: 4px solid #ef5350;
+  width: 55%;
+}
+
+.details-div {
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background-color: #daede3;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+}
+
+.details-div-item {
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details-div-text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.custom-pokemon-form-container {
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  max-height: fit-content;
+  width: 50rem;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.nickName-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.general-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-pkmn-input {
+  margin-left: 0.5rem;
+}
+
+.customize-pokemon-button {
+  border: none;
+  background-color: #fbfbfb;
+  font-weight: bold;
+}
+
+.customize-pokemon-button:hover {
+  cursor: pointer;
+}
+
+.customize-pkmn-img {
+  width: 100%;
+}
+
+.pokemon-img-stats-moves {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pokemon-image {
+  width: 22%;
+}
+
+.pokemon-types-ability-item {
+  width: 22%;
+  margin-left: 0.5rem;
+}
+.pokemon-types {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ability-div {
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background-color: #daede3;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.pokemon-abilities {
+  display: flex;
+  flex-direction: column;
+}
+
+.pokemon-abilities p {
+  margin-bottom: 0;
+}
+
+.ability-item-info {
+  display: flex;
+  gap: 2rem;
+}
+
+.ability-item-input {
+  margin-bottom: 1rem;
+}
+
+.movelist-input-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pokemon-stats p {
+  margin-bottom: 0;
+}
+
+.stat-div {
+  width: 14rem;
+  height: 14.8rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.stat-row {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+}
+
+.stat-bar-hp {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #7cff5c;
+  opacity: 70%;
+}
+
+.stat-bar-atk {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #f4ff5a;
+  opacity: 70%;
+}
+
+.stat-bar-def {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #ffbe96;
+  opacity: 70%;
+}
+
+.stat-bar-spatk {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #ff8585;
+  opacity: 70%;
+}
+
+.stat-bar-spdef {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #92f8ff;
+  opacity: 70%;
+}
+
+.stat-bar-speed {
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+  height: 100%;
+  background-color: #7fa6ff;
+  opacity: 70%;
+}
+
+.stat-row label {
+  margin-right: 1rem;
+}
+
+.pokemon-nature {
+  display: flex;
+  flex-direction: column;
+  margin-top: -1.5rem;
+  margin-left: -3.3rem;
+}
+
+.evSlider {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.stats-input-evstats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stat-slider-div {
+  display: flex;
+  align-items: center;
+}
+
+.stat-slider-label {
+  width: 2.5rem;
+}
+
+.stats-input-evstats p {
+  margin-bottom: 0.2rem;
+}
+
+.stats-input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.base-stats-div {
+  display: flex;
+}
+
+.base-stats-name {
+  width: 5rem;
+}
+
+.iv-stats-name {
+  width: 5rem;
+}
+
+.iv-stats-name div {
+  height: 1.7rem;
+}
+
+.iv-input {
+  width: 3rem;
+}
+
+.iv-stats-amt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.nature-input {
+  margin-top: 1rem;
+}
+
+.error-msg {
+  color: red;
+}
+
+#submit-button {
+  margin-top: 1rem;
+}
+
+select {
+  background-color: #daede3;
+  border: none;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 1.5rem;
+  padding-left: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+option:hover {
+  background-color: #ebf5f0;
+}
+
+.custom-pkmn-input {
+  background-color: #daede3;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.iv-input {
+  background-color: #daede3;
+  border: 2px solid #d0e1d8;
+  border-radius: 10px;
+  height: 1rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+
+.iv-input:focus {
+  outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
+.stat-div:hover {
+  cursor: pointer;
+}
+
+.ability-div:hover {
+  cursor: pointer;
+}
+
+.details-div:hover {
+  cursor: pointer;
+}
+
+.card-h2-details:hover {
+  cursor: pointer;
+}
+
+.header-instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+.instructions {
+  width: 40rem;
+  border-radius: 10px;
+  background-color: #fbfbfb;
+  box-shadow: -10px -10px 1px 1px #d0e1d8;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}

@@ -4,5 +4,5 @@ from .comment import Comment
 from .like import Like
 from .pokemon import Pokemon
 from .team import Team
-from .teammember import TeamMember
+from .party import Party
 from .db import environment, SCHEMA
