@@ -5,6 +5,11 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import { logout } from '../../store/session';
 import { useDispatch } from 'react-redux';
+import { clearComments } from '../../store/comments';
+import { clearLikes } from '../../store/likes';
+import { clearPokemon } from '../../store/pokemon';
+import { clearParties } from '../../store/parties';
+import { clearTeams } from '../../store/teams';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -13,6 +18,11 @@ function Navigation({ isLoaded }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(clearComments());
+    dispatch(clearLikes());
+    dispatch(clearParties());
+    dispatch(clearPokemon());
+    dispatch(clearTeams());
   };
 
   return (
