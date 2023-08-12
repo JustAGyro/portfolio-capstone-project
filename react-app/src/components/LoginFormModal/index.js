@@ -21,6 +21,16 @@ function LoginFormModal() {
     }
   };
 
+  const demoLogIn = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      closeModal();
+    }
+  };
+
   return (
     <>
       <div className="login-signup-div">
@@ -49,6 +59,9 @@ function LoginFormModal() {
           />
           <button className="gen-button" type="submit">
             Log In
+          </button>
+          <button className="gen-button" onClick={demoLogIn}>
+            Demo Login
           </button>
         </form>
       </div>

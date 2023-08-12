@@ -183,48 +183,46 @@ export function CreateTeam() {
         <div className="create-team-form-container">
           <div className="team-side-div">
             <div className="create-team-card-preview">
-              <h2 className="card-h2-team-create" onClick={openPokemonInput}>
-                Team Name: {teamName}
-              </h2>
+              <h2 className="card-h2-team-create">Team Name: {teamName}</h2>
               <div className="team-pokemon-divs-container">
                 <div className="team-pokemon-div">
                   <p>First Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon1.charAt(0).toUpperCase() +
                       teamPokemon1.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Second Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon2.charAt(0).toUpperCase() +
                       teamPokemon2.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Third Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon3.charAt(0).toUpperCase() +
                       teamPokemon3.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Fourth Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon4.charAt(0).toUpperCase() +
                       teamPokemon4.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Fifth Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon5.charAt(0).toUpperCase() +
                       teamPokemon5.slice(1)}
                   </div>
                 </div>
                 <div className="team-pokemon-div">
                   <p>Sixth Pokemon</p>
-                  <div className="team-pokemon" onClick={openPokemonInput}>
+                  <div className="team-pokemon">
                     {teamPokemon6.charAt(0).toUpperCase() +
                       teamPokemon6.slice(1)}
                   </div>
@@ -237,18 +235,23 @@ export function CreateTeam() {
                   >
                     Submit Your Team
                   </button>
+                  <button className="gen-button" onClick={openPokemonInput}>
+                    Edit Name & Pokemon
+                  </button>
                 </div>
-                {requiredError && (
-                  <p className="error-msg">
-                    Please enter a team name and team summary before creating
-                    your team!
-                  </p>
-                )}
-                {duplicateError && (
-                  <p className="error-msg">
-                    You can't add the same Pokemon to a team more than once!
-                  </p>
-                )}
+                <div className="errors-div">
+                  {requiredError && (
+                    <p className="error-msg">
+                      Please enter a team name and team summary before creating
+                      your team!
+                    </p>
+                  )}
+                  {duplicateError && (
+                    <p className="error-msg">
+                      You can't add the same Pokemon to a team more than once!
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             {showPokemonInput && (
@@ -393,17 +396,18 @@ export function CreateTeam() {
           <div className="summary-side-div">
             <div className="team-pokemon-summary">
               <h2 className="card-h2">Team Summary</h2>
-              <div
-                className="summary-display-preview"
-                onClick={openSummaryInput}
-              >
-                {teamSummary}
-              </div>
+
+              <div className="summary-display-preview">{teamSummary}</div>
               {summaryError && (
                 <p className="error-msg">
                   Summary must be less than 1000 characters long.
                 </p>
               )}
+              <div>
+                <button className="gen-button" onClick={openSummaryInput}>
+                  Edit Summary
+                </button>
+              </div>
             </div>
             {showSummaryInput && (
               <div className="summary-input-div">

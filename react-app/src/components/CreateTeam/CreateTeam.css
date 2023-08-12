@@ -19,7 +19,7 @@
   box-shadow: -10px -10px 1px 1px #d0e1d8;
   padding: 1rem;
   width: 40rem;
-  height: 20rem;
+  height: fit-content;
 }
 
 .team-pokemon-divs-container {
@@ -44,10 +44,6 @@
   justify-content: center;
 }
 
-.team-pokemon:hover {
-  cursor: pointer;
-}
-
 .summary-display-preview {
   width: 90%;
   min-height: 11.8rem;
@@ -58,10 +54,6 @@
   white-space: pre-line;
   overflow-y: auto;
   max-height: 20rem;
-}
-
-.summary-display-preview:hover {
-  cursor: pointer;
 }
 
 .team-pokemon-summary {
@@ -89,10 +81,6 @@
 
 .card-h2-team-create {
   border-bottom: 4px solid #ef5350;
-}
-
-.card-h2-team-create:hover {
-  cursor: pointer;
 }
 
 .summary-form {
@@ -128,4 +116,10 @@
   gap: 1rem;
   align-items: center;
   justify-content: center;
+}
+
+.errors-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }

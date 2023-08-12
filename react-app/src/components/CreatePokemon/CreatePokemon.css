@@ -326,6 +326,8 @@
 
 .error-msg {
   color: red;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
 #submit-button {
