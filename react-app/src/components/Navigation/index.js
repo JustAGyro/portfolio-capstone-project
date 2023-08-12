@@ -10,19 +10,23 @@ import { clearLikes } from '../../store/likes';
 import { clearPokemon } from '../../store/pokemon';
 import { clearParties } from '../../store/parties';
 import { clearTeams } from '../../store/teams';
+import { useHistory } from 'react-router-dom';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
     dispatch(clearComments());
     dispatch(clearLikes());
     dispatch(clearParties());
     dispatch(clearPokemon());
     dispatch(clearTeams());
+    dispatch(logout());
+
+    history.push('/');
   };
 
   return (
