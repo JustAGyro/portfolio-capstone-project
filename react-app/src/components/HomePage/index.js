@@ -7,6 +7,10 @@ import { getAllParties } from '../../store/parties';
 import { getAllPokemon } from '../../store/pokemon';
 import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
+import DeleteCommentModal from '../DeleteCommentModal';
+import EditCommentModal from '../EditCommentModal';
+import OpenModalButton from '../OpenModalButton';
+import CreateCommentModal from '../CreateCommentModal';
 
 function HomePage() {
   const teams = useSelector((state) => Object.values(state.teams));
@@ -22,6 +26,7 @@ function HomePage() {
   const [selectedTeamSummary, setSelectedTeamSummary] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
   const [selectedTeamComments, setSelectedTeamComments] = useState('');
+  const [selectedTeamId, setSelectedTeamId] = useState('');
 
   useEffect(() => {
     dispatch(getAllComments());
@@ -88,6 +93,7 @@ function HomePage() {
           (comment) => comment.team_id === teamId
         );
         setSelectedTeamComments(teamComments);
+        setSelectedTeamId(teamId);
       }
     }
   };
@@ -155,6 +161,7 @@ function HomePage() {
         {commentsOpen && currentUser && (
           <div className="team-summary-div">
             <h1 className="card-h2">Comments - {selectedTeamName}</h1>
+
             <div className="comment-display">
               {selectedTeamComments.map((comment, index) => (
                 <>
@@ -163,8 +170,27 @@ function HomePage() {
                     <cite>- {comment.author}</cite>
                     {currentUser === comment.author ? (
                       <div>
-                        <button className="gen-button">Edit</button>
-                        <button className="gen-button">Delete</button>
+                        <button className="gen-button">
+                          <OpenModalButton
+                            className="gen-btn"
+                            buttonText={'Edit'}
+                            modalComponent={
+                              <EditCommentModal
+                                id={comment.id}
+                                commentText={comment.comment_text}
+                              />
+                            }
+                          ></OpenModalButton>
+                        </button>
+                        <button className="gen-button">
+                          <OpenModalButton
+                            className="gen-btn"
+                            buttonText={'Delete'}
+                            modalComponent={
+                              <DeleteCommentModal id={comment.id} />
+                            }
+                          ></OpenModalButton>
+                        </button>
                       </div>
                     ) : null}
                   </div>
@@ -172,8 +198,18 @@ function HomePage() {
               ))}
             </div>
             <div className="summary-button">
+              <button className="gen-button">
+                <OpenModalButton
+                  buttonText={'Write A Comment'}
+                  modalComponent={
+                    <CreateCommentModal teamId={selectedTeamId} />
+                  }
+                >
+                  {' '}
+                </OpenModalButton>
+              </button>
               <button className="gen-button" onClick={openCommentsButton}>
-                Close Summary
+                Close Comments
               </button>
             </div>
           </div>
