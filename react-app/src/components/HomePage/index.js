@@ -13,6 +13,7 @@ function HomePage() {
   const parties = useSelector((state) => Object.values(state.parties));
   const pokemon = useSelector((state) => Object.values(state.pokemon));
   const comments = useSelector((state) => Object.values(state.comments));
+  const currentUser = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
 
   const [teamCardsClass, setTeamCardsClass] = useState('team-cards');
@@ -151,7 +152,7 @@ function HomePage() {
             </div>
           </div>
         )}
-        {commentsOpen && (
+        {commentsOpen && currentUser && (
           <div className="team-summary-div">
             <h1 className="card-h2">Comments - {selectedTeamName}</h1>
             <div className="comment-display">
@@ -160,10 +161,12 @@ function HomePage() {
                   <div key={index} className="comment">
                     <p>{comment.comment_text}</p>
                     <cite>- {comment.author}</cite>
-                    <div>
-                      <button className="gen-button">Edit</button>
-                      <button className="gen-button">Delete</button>
-                    </div>
+                    {currentUser === comment.author ? (
+                      <div>
+                        <button className="gen-button">Edit</button>
+                        <button className="gen-button">Delete</button>
+                      </div>
+                    ) : null}
                   </div>
                 </>
               ))}
