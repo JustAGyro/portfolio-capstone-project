@@ -7,18 +7,20 @@ import { getAllParties } from '../../store/parties';
 import { getAllPokemon } from '../../store/pokemon';
 import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 
 function HomePage() {
   const teams = useSelector((state) => Object.values(state.teams));
   const parties = useSelector((state) => Object.values(state.parties));
   const pokemon = useSelector((state) => Object.values(state.pokemon));
+  const comments = useSelector((state) => Object.values(state.comments));
   const dispatch = useDispatch();
 
   const [teamCardsClass, setTeamCardsClass] = useState('team-cards');
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const [selectedTeamSummary, setSelectedTeamSummary] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
+  const [selectedTeamComments, setSelectedTeamComments] = useState('');
 
   useEffect(() => {
     dispatch(getAllComments());
@@ -52,6 +54,10 @@ function HomePage() {
   console.log(teamPokemonMap);
 
   const openSummaryButton = (teamSummary, teamName) => {
+    if (commentsOpen) {
+      setCommentsOpen(false);
+    }
+
     if (summaryOpen) {
       setSummaryOpen(false);
       setTeamCardsClass('team-cards');
@@ -60,6 +66,28 @@ function HomePage() {
       setTeamCardsClass('team-cards-summary-open');
       setSelectedTeamSummary(teamSummary);
       setSelectedTeamName(teamName);
+    }
+  };
+
+  const openCommentsButton = (teamId, teamName) => {
+    if (summaryOpen) {
+      setSummaryOpen(false);
+    }
+
+    if (commentsOpen) {
+      setCommentsOpen(false);
+      setTeamCardsClass('team-cards');
+    } else {
+      setCommentsOpen(true);
+      setTeamCardsClass('team-cards-summary-open');
+      setSelectedTeamName(teamName);
+
+      if (comments) {
+        const teamComments = comments.filter(
+          (comment) => comment.team_id === teamId
+        );
+        setSelectedTeamComments(teamComments);
+      }
     }
   };
 
@@ -104,7 +132,7 @@ function HomePage() {
                 </button>
                 <button
                   className="gen-button"
-                  onClick={() => alert('Coming Soon')}
+                  onClick={() => openCommentsButton(team.id, team.team_name)}
                 >
                   Comments
                 </button>
@@ -118,6 +146,30 @@ function HomePage() {
             <div className="summary-display">{selectedTeamSummary}</div>
             <div className="summary-button">
               <button className="gen-button" onClick={openSummaryButton}>
+                Close Summary
+              </button>
+            </div>
+          </div>
+        )}
+        {commentsOpen && (
+          <div className="team-summary-div">
+            <h1 className="card-h2">Comments - {selectedTeamName}</h1>
+            <div className="comment-display">
+              {selectedTeamComments.map((comment, index) => (
+                <>
+                  <div key={index} className="comment">
+                    <p>{comment.comment_text}</p>
+                    <cite>- {comment.author}</cite>
+                    <div>
+                      <button className="gen-button">Edit</button>
+                      <button className="gen-button">Delete</button>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="summary-button">
+              <button className="gen-button" onClick={openCommentsButton}>
                 Close Summary
               </button>
             </div>

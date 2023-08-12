@@ -16,7 +16,7 @@ function CreatePokemon() {
   const [nickNameError, setNickNameError] = useState(false);
   const [requiredError, setRequiredError] = useState(false);
   const [ivError, setIvError] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const searchRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,10 +25,8 @@ function CreatePokemon() {
   useEffect(() => {
     if (nickName.length > 25) {
       setNickNameError(true);
-      setDisabled(true);
     } else {
       setNickNameError(false);
-      setDisabled(false);
     }
 
     if (
@@ -43,10 +41,8 @@ function CreatePokemon() {
       moveFour.length < 2
     ) {
       setRequiredError(true);
-      setDisabled(true);
     } else {
       setRequiredError(false);
-      setDisabled(false);
     }
 
     if (
@@ -57,7 +53,6 @@ function CreatePokemon() {
       ivSpDef > 31 ||
       ivSpeed > 31
     ) {
-      setDisabled(true);
       setIvError(true);
     } else if (
       ivHp <= 31 &&
@@ -67,10 +62,17 @@ function CreatePokemon() {
       ivSpDef <= 31 &&
       ivSpeed <= 31
     ) {
-      setDisabled(false);
       setIvError(false);
     }
   });
+
+  useEffect(() => {
+    if (nickNameError || requiredError || ivError) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [nickNameError, requiredError, ivError]);
 
   //useStates for pokemon databasefields
   const [pokeDex, setPokeDex] = useState(0);
