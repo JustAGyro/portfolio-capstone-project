@@ -22,4 +22,5 @@ class Comment(db.Model):
             "user_id": self.user_id,
             "team_id": self.team_id,
             "comment_text": self.comment_text,
+            'author': f'{self.user.username}' if self.user else None,
         }

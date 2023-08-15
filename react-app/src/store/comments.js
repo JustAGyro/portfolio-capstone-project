@@ -60,13 +60,19 @@ export const getAllComments = () => async (dispatch) => {
   }
 };
 
-export const newComment = () => async (dispatch) => {
-  const response = await fetch('/api/comments/new');
+export const newComment = (comment) => async (dispatch) => {
+  const response = await fetch(`/api/comments/new`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(comment),
+  });
 
   if (response.ok) {
     const data = await response.json();
 
-    await dispatch(loadComment(data));
+    dispatch(loadComment(data));
     return data;
   }
 };

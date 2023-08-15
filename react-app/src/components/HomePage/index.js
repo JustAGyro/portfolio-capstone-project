@@ -7,18 +7,26 @@ import { getAllParties } from '../../store/parties';
 import { getAllPokemon } from '../../store/pokemon';
 import { getAllTeams } from '../../store/teams';
 import { useDispatch } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
+import DeleteCommentModal from '../DeleteCommentModal';
+import EditCommentModal from '../EditCommentModal';
+import OpenModalButton from '../OpenModalButton';
+import CreateCommentModal from '../CreateCommentModal';
 
 function HomePage() {
   const teams = useSelector((state) => Object.values(state.teams));
   const parties = useSelector((state) => Object.values(state.parties));
   const pokemon = useSelector((state) => Object.values(state.pokemon));
+  const comments = useSelector((state) => Object.values(state.comments));
+  const currentUser = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
 
   const [teamCardsClass, setTeamCardsClass] = useState('team-cards');
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const [selectedTeamSummary, setSelectedTeamSummary] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
+  const [selectedTeamComments, setSelectedTeamComments] = useState('');
+  const [selectedTeamId, setSelectedTeamId] = useState('');
 
   useEffect(() => {
     dispatch(getAllComments());
@@ -52,6 +60,10 @@ function HomePage() {
   console.log(teamPokemonMap);
 
   const openSummaryButton = (teamSummary, teamName) => {
+    if (commentsOpen) {
+      setCommentsOpen(false);
+    }
+
     if (summaryOpen) {
       setSummaryOpen(false);
       setTeamCardsClass('team-cards');
@@ -60,6 +72,29 @@ function HomePage() {
       setTeamCardsClass('team-cards-summary-open');
       setSelectedTeamSummary(teamSummary);
       setSelectedTeamName(teamName);
+    }
+  };
+
+  const openCommentsButton = (teamId, teamName) => {
+    if (summaryOpen) {
+      setSummaryOpen(false);
+    }
+
+    if (commentsOpen) {
+      setCommentsOpen(false);
+      setTeamCardsClass('team-cards');
+    } else {
+      setCommentsOpen(true);
+      setTeamCardsClass('team-cards-summary-open');
+      setSelectedTeamName(teamName);
+
+      if (comments) {
+        const teamComments = comments.filter(
+          (comment) => comment.team_id === teamId
+        );
+        setSelectedTeamComments(teamComments);
+        setSelectedTeamId(teamId);
+      }
     }
   };
 
@@ -104,7 +139,7 @@ function HomePage() {
                 </button>
                 <button
                   className="gen-button"
-                  onClick={() => alert('Coming Soon')}
+                  onClick={() => openCommentsButton(team.id, team.team_name)}
                 >
                   Comments
                 </button>
@@ -119,6 +154,62 @@ function HomePage() {
             <div className="summary-button">
               <button className="gen-button" onClick={openSummaryButton}>
                 Close Summary
+              </button>
+            </div>
+          </div>
+        )}
+        {commentsOpen && currentUser && (
+          <div className="team-summary-div">
+            <h1 className="card-h2">Comments - {selectedTeamName}</h1>
+
+            <div className="comment-display">
+              {selectedTeamComments.map((comment, index) => (
+                <>
+                  <div key={index} className="comment">
+                    <p>{comment.comment_text}</p>
+                    <cite>- {comment.author}</cite>
+                    {currentUser === comment.author ? (
+                      <div>
+                        <button className="gen-button">
+                          <OpenModalButton
+                            className="gen-btn"
+                            buttonText={'Edit'}
+                            modalComponent={
+                              <EditCommentModal
+                                id={comment.id}
+                                commentText={comment.comment_text}
+                              />
+                            }
+                          ></OpenModalButton>
+                        </button>
+                        <button className="gen-button">
+                          <OpenModalButton
+                            className="gen-btn"
+                            buttonText={'Delete'}
+                            modalComponent={
+                              <DeleteCommentModal id={comment.id} />
+                            }
+                          ></OpenModalButton>
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="summary-button">
+              <button className="gen-button">
+                <OpenModalButton
+                  buttonText={'Write A Comment'}
+                  modalComponent={
+                    <CreateCommentModal teamId={selectedTeamId} />
+                  }
+                >
+                  {' '}
+                </OpenModalButton>
+              </button>
+              <button className="gen-button" onClick={openCommentsButton}>
+                Close Comments
               </button>
             </div>
           </div>
