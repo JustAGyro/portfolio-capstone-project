@@ -67,4 +67,4 @@ def delete_comment(id):
     if current_user.id == comment.user_id:
         db.session.delete(comment)
         db.session.commit()
-        return {'res': 'Comment Successfully Deleted'}
+        return jsonify(id), 200
