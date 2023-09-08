@@ -76,9 +76,6 @@ export const newPokemon = (pokemon) => async (dispatch) => {
 };
 
 export const editPokemons = (pokemon, id) => async (dispatch) => {
-  console.log('Do we get here? 1');
-  console.log('pokemon', id);
-  console.log('why is the line above skipped');
   const response = await fetch(`/api/pokemon/${id}/edit`, {
     method: 'PUT',
     headers: {
@@ -88,7 +85,6 @@ export const editPokemons = (pokemon, id) => async (dispatch) => {
   });
 
   if (response.ok) {
-    console.log('Do we get here? 2');
     const data = await response.json();
 
     dispatch(loadPokemon(data));

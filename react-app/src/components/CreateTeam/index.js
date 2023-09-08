@@ -114,7 +114,7 @@ export function CreateTeam() {
     (pkmn) => pkmn.user_id === userId
   );
 
-  console.log('teamPokemon 1: ', teamPokemon1.name);
+
 
   const submitTeamForm = async () => {
     const teamPayload = {
@@ -125,7 +125,7 @@ export function CreateTeam() {
     const createdTeam = await dispatch(newTeam(teamPayload));
 
     if (createdTeam) {
-      console.log(createdTeam);
+
       const teamPokemons = [
         teamPokemon1,
         teamPokemon2,

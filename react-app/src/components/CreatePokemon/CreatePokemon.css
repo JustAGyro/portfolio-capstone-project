@@ -206,7 +206,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #7cff5c;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-bar-atk {
@@ -215,7 +215,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #f4ff5a;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-bar-def {
@@ -224,7 +224,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #ffbe96;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-bar-spatk {
@@ -233,7 +233,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #ff8585;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-bar-spdef {
@@ -242,7 +242,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #92f8ff;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-bar-speed {
@@ -251,7 +251,7 @@
   margin-left: 3rem;
   height: 100%;
   background-color: #7fa6ff;
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .stat-row label {

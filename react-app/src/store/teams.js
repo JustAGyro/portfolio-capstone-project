@@ -95,7 +95,6 @@ export const deleteTeams = (team) => async (dispatch) => {
 };
 
 export const editTeams = (team) => async (dispatch) => {
-  console.log('Do we get here? Actually First');
   const response = await fetch(`/api/teams/${team.id}/edit`, {
     method: 'PUT',
     headers: {
@@ -103,10 +102,8 @@ export const editTeams = (team) => async (dispatch) => {
     },
     body: JSON.stringify(team),
   });
-  console.log('Do we get here? First');
 
   if (response.ok) {
-    console.log('Do we get here? Second');
     const data = await response.json();
 
     dispatch(loadTeam(data));

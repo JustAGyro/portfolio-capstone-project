@@ -21,7 +21,6 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
-  console.log(sessionUser);
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
