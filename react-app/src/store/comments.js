@@ -77,6 +77,23 @@ export const newComment = (comment) => async (dispatch) => {
   }
 };
 
+export const editComment = (id, comment) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${id}/edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(comment),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+
+    dispatch(loadComment(data));
+    return data;
+  }
+};
+
 export const deleteComments = (comment) => async (dispatch) => {
   const response = await fetch(`/api/comments/${comment.id}/delete`, {
     method: 'DELETE',
@@ -113,7 +130,7 @@ export default function commentsReducer(state = {}, action) {
       return newState;
     case DELETE_COMMENT:
       newState = { ...state };
-      delete newState[action.payload.id];
+      delete newState[action.payload];
       return newState;
     case CLEAR_COMMENTS:
       newState = {};

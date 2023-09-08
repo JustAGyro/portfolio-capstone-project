@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import { deletePokemons } from '../../store/pokemon';
+
 import { useHistory } from 'react-router-dom';
+import { deleteComments, loadAllComments } from '../../store/comments';
 
 function DeleteCommentModal({ id }) {
   const dispatch = useDispatch();
@@ -14,8 +15,7 @@ function DeleteCommentModal({ id }) {
     const payload = {
       id: id,
     };
-    dispatch();
-
+    dispatch(deleteComments(payload));
     closeModal();
   };
 
