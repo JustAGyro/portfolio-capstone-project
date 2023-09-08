@@ -180,7 +180,7 @@ function HomePage() {
                                 commentText={comment.comment_text}
                               />
                             }
-                          ></OpenModalButton>
+                          />
                         </button>
                         <button className="gen-button">
                           <OpenModalButton
@@ -189,7 +189,7 @@ function HomePage() {
                             modalComponent={
                               <DeleteCommentModal id={comment.id} />
                             }
-                          ></OpenModalButton>
+                          />
                         </button>
                       </div>
                     ) : null}
