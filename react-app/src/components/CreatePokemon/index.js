@@ -372,7 +372,6 @@ function CreatePokemon() {
     history.push('/pokemon');
   };
 
-  console.log(natureSelections);
 
   return (
     <>

@@ -61,7 +61,7 @@ function MyTeams() {
     }
   });
 
-  console.log(teamPokemonMap);
+
 
   const openSummaryButton = (teamSummary, teamName) => {
     if (summaryOpen) {

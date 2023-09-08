@@ -9,7 +9,7 @@ import { loadAllComments } from '../../store/comments';
 function CreateCommentModal({ teamId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log(teamId);
+
   const [text, setText] = useState('');
   const { closeModal } = useModal();
 

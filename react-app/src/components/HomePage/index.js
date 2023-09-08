@@ -57,7 +57,6 @@ function HomePage() {
     }
   });
 
-  console.log(teamPokemonMap);
 
   const openSummaryButton = (teamSummary, teamName) => {
     if (commentsOpen) {

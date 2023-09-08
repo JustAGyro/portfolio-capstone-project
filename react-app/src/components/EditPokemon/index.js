@@ -339,9 +339,9 @@ function EditPokemon() {
       ivSpDef: ivSpDef,
       ivSpeed: ivSpeed,
     };
-    console.log('do we even trigger this...?');
+
     dispatch(editPokemons(payload, pokemonId));
-    console.log('do we even trigger this...?');
+
     history.push('/pokemon');
   };
 

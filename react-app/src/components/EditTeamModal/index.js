@@ -6,7 +6,7 @@ import { editTeams } from '../../store/teams';
 
 function EditTeamModal({ id, teamName, teamSummary }) {
   const dispatch = useDispatch();
-  console.log(teamName);
+
   const [editTeamName, setEditTeamName] = useState(teamName);
   const [editTeamSummary, setEditTeamSummary] = useState(teamSummary);
   const { closeModal } = useModal();
