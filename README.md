@@ -1,148 +1,59 @@
-# Flask React Project
+# Poke Meta
 
-This is the starter for the Flask React project.
+### Application is live at [Here](https://gyro-pokemon.onrender.com)
 
-## Getting started
-1. Clone this repository (only this branch)
+![landing page](assets/images/landingpage.png)
 
-2. Install dependencies
+![home page](assets/images/homepage.png)
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+Poke Meta is an app designed to help a user create pokemon teams for competitive and casual use within all pokemon video games. Users can create and customize pokemon to the full extent and add them to teams to create interesting and unique combinations that dominate the pokemon leagues.
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+## Table of Contents
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+- [Installation](#installation)
+- [Usage](#usage)
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+## Installation
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+To get started with JobSphere, follow these steps:
 
-   ```bash
-   pipenv shell
-   ```
+1. **Clone or fork the project.**
+2. **Run 'pipenv install' in the root directory to install server dependecies.**
+3. **Run 'npm install' to install frontend dependencies.**
+4. **Run 'pipenv run flask db migrate' and 'pipenv run flask seed all' to add the mock data.**
+5. **Run 'pipenv run flask run in the root depsoitory'.**
+6. **Run 'npm start' in the react-app folder.**
 
-   ```bash
-   flask db upgrade
-   ```
+## Usage
 
-   ```bash
-   flask seed all
-   ```
+### My Pokemon
 
-   ```bash
-   flask run
-   ```
+1. A logged in user can view their pokemon by navigating to "My Pokemon". They can edit or release (delete) pokemon from this page as well.
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+![users pokemon](assets/images/userspokemon.png)
 
+### My Teams
 
-## Deployment through Render.com
+1. A logged in user can view their teams by navigating to "My Team". They can edit or delete teams from this page as well.
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+![users teams](assets/images/usersteam.png)
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+### Create Pokemon
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
+1. A logged in user can search for any pokemon that exists in the pokemon universe (All 1000+ of them!).
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+2. A logged in user can then customize and save their copy of the pokemon for future use.
 
-### Part A: Configure the Start and Build Commands
+![create pokemon](assets/images/createpokemon.png)
 
-Start by giving your application a name.
+### Create Team
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+1. A logged in user can create pokemon teams using the pokemon that they have previously created. The user must use unique pokemon for each pokemon slot.
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+![create team](assets/images/createteam.png)
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+### A user can add comments to other users teams
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+1. A logged in user can create edit and delete comments they have made on other users pokemon teams.
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+![add comment](assets/images/addcomment.png)

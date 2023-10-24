@@ -58,6 +58,11 @@ function Navigation({ isLoaded }) {
               Create Team
             </NavLink>
           </div>
+          <div className="navbar-item">
+            <NavLink className="navbar-link" exact to="/about">
+              About Me
+            </NavLink>
+          </div>
         </div>
       )}
       {sessionUser && (
