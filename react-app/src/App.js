@@ -16,6 +16,7 @@ import { getAllParties } from './store/parties';
 import { getAllLikes } from './store/likes';
 import { getAllPokemon } from './store/pokemon';
 import { getAllTeams } from './store/teams';
+import AboutPage from './components/AboutPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,9 @@ function App() {
             </Route>
             <Route exact path="/teams/create">
               <CreateTeam />
+            </Route>
+            <Route exact path="/about">
+              <AboutPage />
             </Route>
           </Switch>
         )}
