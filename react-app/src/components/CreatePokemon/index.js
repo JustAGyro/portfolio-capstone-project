@@ -154,9 +154,11 @@ function CreatePokemon() {
 
   //Grab pokemon to customize and save to db
   const fetchSelectedPokemon = (pkmnId) => {
-    fetch(`/api/pokemon/${pkmnId}/search`)
-      .then((response) => response.json())
-      .then((data) => setPokemonData(data));
+    if (pkmnId > 0) {
+      fetch(`/api/pokemon/${pkmnId}/search`)
+        .then((response) => response.json())
+        .then((data) => setPokemonData(data));
+    }
   };
 
   //Grab Pokemon & load all the states to properly show data
@@ -371,7 +373,6 @@ function CreatePokemon() {
     dispatch(newPokemon(payload));
     history.push('/pokemon');
   };
-
 
   return (
     <>
